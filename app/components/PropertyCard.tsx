@@ -10,7 +10,7 @@ export default function PropertyCard({ property, variant = 'standard', className
   if (variant === 'featured') {
     return (
       <div className={`group relative rounded-xl overflow-hidden shadow-soft bg-white  cursor-pointer ${className}`}>
-        <div className="aspect-[4/3] w-full overflow-hidden relative">
+        <div className="aspect-4/3 w-full overflow-hidden relative">
           <img alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src={property.image_url} />
           {property.tag && (
             <div className="absolute top-4 left-4 bg-white/90  backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-nordic-dark ">
@@ -20,7 +20,7 @@ export default function PropertyCard({ property, variant = 'standard', className
           <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90  backdrop-blur-sm flex items-center justify-center text-nordic-dark hover:bg-mosque hover:text-white transition-all">
             <span className="material-icons text-xl">favorite_border</span>
           </button>
-          <div className="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
+          <div className="absolute bottom-0 inset-x-0 h-1/2 bg-linear-to-t from-black/60 to-transparent opacity-60"></div>
         </div>
         <div className="p-6 relative">
           <div className="flex justify-between items-start mb-2">
@@ -54,7 +54,7 @@ export default function PropertyCard({ property, variant = 'standard', className
   // Standard variant
   return (
     <article className={`bg-white  rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col ${className}`}>
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="relative aspect-4/3 overflow-hidden">
         <img alt={property.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src={property.image_url} />
         <button className="absolute top-3 right-3 p-2 bg-white/90  rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark">
           <span className="material-icons text-lg">favorite_border</span>
@@ -63,7 +63,7 @@ export default function PropertyCard({ property, variant = 'standard', className
           {property.type === 'rent' ? 'FOR RENT' : 'FOR SALE'}
         </div>
       </div>
-      <div className="p-4 flex flex-col flex-grow">
+      <div className="p-4 flex flex-col grow">
         <div className="flex justify-between items-baseline mb-2">
           <h3 className="font-bold text-lg text-nordic-dark ">
             ${property.price.toLocaleString()}
