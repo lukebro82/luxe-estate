@@ -18,7 +18,7 @@ export default function FeaturedCollections({ properties }: FeaturedCollectionsP
         </a>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {properties.map(property => (
+        {properties.slice(0, 2).map(property => (
           <PropertyCard key={property.id} property={property} variant="featured" />
         ))}
       </div>
