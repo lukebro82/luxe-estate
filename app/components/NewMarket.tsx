@@ -1,9 +1,14 @@
-import { mockProperties } from "../data/mockProperties";
+import { Property } from "../types/property";
 import PropertyCard from "./PropertyCard";
+import Pagination from "./Pagination";
 
-export default function NewMarket() {
-  const newProperties = mockProperties.filter(p => !p.featured);
+interface NewMarketProps {
+  properties: Property[];
+  currentPage: number;
+  totalPages: number;
+}
 
+export default function NewMarket({ properties, currentPage, totalPages }: NewMarketProps) {
   return (
     <section>
       <div className="flex items-end justify-between mb-8">
@@ -18,26 +23,11 @@ export default function NewMarket() {
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {newProperties.map((property, index) => {
-          // To match reference exactly, hide some items on certain breakpoints based on their index
-          let visibilityClass = '';
-          if (index === 4) visibilityClass = 'hidden xl:flex';
-          if (index === 5) visibilityClass = 'hidden lg:flex';
-
-          return (
-            <PropertyCard
-              key={property.id}
-              property={property}
-              className={visibilityClass}
-            />
-          );
-        })}
+        {properties.map((property) => (
+          <PropertyCard key={property.id} property={property} />
+        ))}
       </div>
-      <div className="mt-12 text-center">
-        <button className="px-8 py-3 bg-white  border border-nordic-dark/10  hover:border-mosque hover:text-mosque text-nordic-dark  font-medium rounded-lg transition-all hover:shadow-md">
-            Load more properties
-        </button>
-      </div>
+      <Pagination currentPage={currentPage} totalPages={totalPages} />
     </section>
   );
 }
