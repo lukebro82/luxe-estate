@@ -12,7 +12,7 @@ export default function PropertyCard({ property, variant = 'standard', className
     return (
       <Link href={`/property/${property.slug}`} className={`group relative rounded-xl overflow-hidden shadow-soft bg-white cursor-pointer block ${className}`}>
         <div className="aspect-4/3 w-full overflow-hidden relative">
-          <img alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src={property.image_url} />
+          <img alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src={property.images[0]} />
           {property.tag && (
             <div className="absolute top-4 left-4 bg-white/90  backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-nordic-dark ">
               {property.tag}
@@ -56,7 +56,7 @@ export default function PropertyCard({ property, variant = 'standard', className
   return (
     <Link href={`/property/${property.slug}`} className={`bg-white rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col block ${className}`}>
       <div className="relative aspect-4/3 overflow-hidden">
-        <img alt={property.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src={property.image_url} />
+        <img alt={property.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src={property.images[0]} />
         <button className="absolute top-3 right-3 p-2 bg-white/90  rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark">
           <span className="material-icons text-lg">favorite_border</span>
         </button>

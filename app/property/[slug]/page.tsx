@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PropertyPageProps): Promise<M
     title: `${property.title} | LuxeEstate`,
     description: `Stunning ${property.beds} bed, ${property.baths} bath property for ${property.type} located in ${property.location}.`,
     openGraph: {
-      images: [property.image_url],
+      images: [property.images[0]],
     },
   };
 }
@@ -31,10 +31,10 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
     notFound();
   }
 
-  // Generate an array of images safely
+  // Use images array safely
   const imageGallery = property.images && property.images.length > 0 
     ? property.images 
-    : [property.image_url, property.image_url, property.image_url, property.image_url];
+    : [property.images[0], property.images[0], property.images[0], property.images[0]];
 
   return (
     <div className="bg-clear-day min-h-screen text-nordic selection:bg-mosque/20">
@@ -48,7 +48,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
               <img 
                 alt={property.title} 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                src={property.image_url} 
+                src={property.images[0]} 
               />
               <div className="absolute top-4 left-4 flex gap-2">
                 {property.tag && (

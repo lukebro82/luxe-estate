@@ -7,7 +7,6 @@ export interface Property {
   beds: number;
   baths: number;
   size: number;
-  image_url: string;
   tag?: string | null;
   featured: boolean;
   created_at: string;
