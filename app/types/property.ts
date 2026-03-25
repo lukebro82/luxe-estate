@@ -11,4 +11,6 @@ export interface Property {
   tag?: string | null;
   featured: boolean;
   created_at: string;
+  slug: string;
+  images: string[];
 }

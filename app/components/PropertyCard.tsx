@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Property } from "../types/property";
 
 interface PropertyCardProps {
@@ -9,7 +10,7 @@ interface PropertyCardProps {
 export default function PropertyCard({ property, variant = 'standard', className = '' }: PropertyCardProps) {
   if (variant === 'featured') {
     return (
-      <div className={`group relative rounded-xl overflow-hidden shadow-soft bg-white  cursor-pointer ${className}`}>
+      <Link href={`/property/${property.slug}`} className={`group relative rounded-xl overflow-hidden shadow-soft bg-white cursor-pointer block ${className}`}>
         <div className="aspect-4/3 w-full overflow-hidden relative">
           <img alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src={property.image_url} />
           {property.tag && (
@@ -47,13 +48,13 @@ export default function PropertyCard({ property, variant = 'standard', className
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     );
   }
 
   // Standard variant
   return (
-    <article className={`bg-white  rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col ${className}`}>
+    <Link href={`/property/${property.slug}`} className={`bg-white rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col block ${className}`}>
       <div className="relative aspect-4/3 overflow-hidden">
         <img alt={property.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src={property.image_url} />
         <button className="absolute top-3 right-3 p-2 bg-white/90  rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark">
@@ -84,6 +85,6 @@ export default function PropertyCard({ property, variant = 'standard', className
           </div>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
