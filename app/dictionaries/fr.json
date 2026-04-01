@@ -1,0 +1,85 @@
+{
+  "navbar": {
+    "buy": "Acheter",
+    "rent": "Louer",
+    "sell": "Vendre",
+    "savedHomes": "Favoris"
+  },
+  "hero": {
+    "title1": "Trouvez votre",
+    "title2": "sanctuaire",
+    "searchPlaceholder": "Rechercher par ville, quartier ou adresse...",
+    "searchButton": "Rechercher",
+    "filters": "Filtres",
+    "categories": {
+      "All": "Tous",
+      "House": "Maison",
+      "Apartment": "Appartement",
+      "Villa": "Villa",
+      "Penthouse": "Penthouse"
+    }
+  },
+  "featured": {
+    "title": "Collections en vedette",
+    "subtitle": "Des propriétés exclusives pour les plus exigeants.",
+    "viewAll": "Voir tout"
+  },
+  "newMarket": {
+    "searchResults": "Résultats de recherche",
+    "propertiesFound": "propriétés trouvées",
+    "propertyFound": "propriété trouvée",
+    "forText": "pour",
+    "newInMarket": "Nouveau sur le marché",
+    "newSubtitle": "De nouvelles offres ajoutées cette semaine.",
+    "all": "Tous",
+    "buy": "Acheter",
+    "rent": "Louer",
+    "noResults": "Aucune propriété ne correspond à votre recherche.",
+    "tryAdjusting": "Essayez de modifier vos filtres ou vos termes de recherche."
+  },
+  "searchFilters": {
+    "filters": "Filtres",
+    "close": "Fermer les filtres",
+    "location": "Emplacement",
+    "locationPlaceholder": "Ville, quartier ou adresse",
+    "priceRange": "Gamme de prix",
+    "minPrice": "Prix Min",
+    "maxPrice": "Prix Max",
+    "propertyType": "Type de Propriété",
+    "bedrooms": "Chambres",
+    "bathrooms": "Salles de bain",
+    "any": "Tous",
+    "amenities": "Commodités et caractéristiques",
+    "clearAll": "Effacer tous les filtres",
+    "showResults": "Afficher les résultats",
+    "amenityLabels": {
+      "pool": "Piscine",
+      "gym": "Salle de sport",
+      "parking": "Parking",
+      "ac": "Climatisation",
+      "wifi": "Wi-Fi haut débit",
+      "terrace": "Patio / Terrasse"
+    }
+  },
+  "propertyPage": {
+    "forSale": "À VENDRE",
+    "forRent": "À LOUER",
+    "viewPhotos": "Voir toutes les photos",
+    "perMonth": "/mois",
+    "topRated": "Agent de premier plan",
+    "scheduleVisit": "Planifier une visite",
+    "contactAgent": "Contacter l'agent",
+    "featuresTitle": "Caractéristiques de la propriété",
+    "sqm": "Mètres carrés",
+    "bedrooms": "Chambres",
+    "bathrooms": "Salles de bain",
+    "garage": "Garage",
+    "about": "À propos de cette maison",
+    "readMore": "En savoir plus",
+    "amenitiesTitle": "Commodités",
+    "estimatedPayment": "Paiement estimé",
+    "startingFrom": "À partir de",
+    "withDown": "avec 20% d'acompte",
+    "calcMortgage": "Calculer l'hypothèque"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "navbar": {
+    "buy": "Buy",
+    "rent": "Rent",
+    "sell": "Sell",
+    "savedHomes": "Saved Homes"
+  },
+  "hero": {
+    "title1": "Find your",
+    "title2": "sanctuary",
+    "searchPlaceholder": "Search by city, neighborhood, or address...",
+    "searchButton": "Search",
+    "filters": "Filters",
+    "categories": {
+      "All": "All",
+      "House": "House",
+      "Apartment": "Apartment",
+      "Villa": "Villa",
+      "Penthouse": "Penthouse"
+    }
+  },
+  "featured": {
+    "title": "Featured Collections",
+    "subtitle": "Curated properties for the discerning eye.",
+    "viewAll": "View all"
+  },
+  "newMarket": {
+    "searchResults": "Search Results",
+    "propertiesFound": "properties found",
+    "propertyFound": "property found",
+    "forText": "for",
+    "newInMarket": "New in Market",
+    "newSubtitle": "Fresh opportunities added this week.",
+    "all": "All",
+    "buy": "Buy",
+    "rent": "Rent",
+    "noResults": "No properties found matching your search.",
+    "tryAdjusting": "Try adjusting your filters or search terms."
+  },
+  "searchFilters": {
+    "filters": "Filters",
+    "close": "Close filters",
+    "location": "Location",
+    "locationPlaceholder": "City, neighborhood, or address",
+    "priceRange": "Price Range",
+    "minPrice": "Min Price",
+    "maxPrice": "Max Price",
+    "propertyType": "Property Type",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "any": "Any",
+    "amenities": "Amenities & Features",
+    "clearAll": "Clear all filters",
+    "showResults": "Show Results",
+    "amenityLabels": {
+      "pool": "Swimming Pool",
+      "gym": "Gym",
+      "parking": "Parking",
+      "ac": "Air Conditioning",
+      "wifi": "High-speed Wifi",
+      "terrace": "Patio / Terrace"
+    }
+  },
+  "propertyPage": {
+    "forSale": "FOR SALE",
+    "forRent": "FOR RENT",
+    "viewPhotos": "View All Photos",
+    "perMonth": "/mo",
+    "topRated": "Top Rated Agent",
+    "scheduleVisit": "Schedule Visit",
+    "contactAgent": "Contact Agent",
+    "featuresTitle": "Property Features",
+    "sqm": "Square Meters",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "garage": "Garage",
+    "about": "About this home",
+    "readMore": "Read more",
+    "amenitiesTitle": "Amenities",
+    "estimatedPayment": "Estimated Payment",
+    "startingFrom": "Starting from",
+    "withDown": "with 20% down",
+    "calcMortgage": "Calculate Mortgage"
+  }
+}

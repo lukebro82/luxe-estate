@@ -4,6 +4,7 @@ import HeroSection from "./components/HeroSection";
 import FeaturedCollections from "./components/FeaturedCollections";
 import NewMarket from "./components/NewMarket";
 import { getFeaturedProperties, getProperties, PAGE_SIZE } from "../lib/properties";
+import { getDictionary } from "./utils/i18n";
 
 interface HomeProps {
   searchParams: Promise<{
@@ -20,6 +21,7 @@ interface HomeProps {
 export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
   const currentPage = Math.max(1, parseInt(params.page ?? "1", 10));
+  const dict = await getDictionary();
 
   const filters = {
     query: params.q,
@@ -61,10 +63,10 @@ export default async function Home({ searchParams }: HomeProps) {
       <Navbar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <Suspense fallback={<div className="py-12 md:py-16 h-48" />}>
-          <HeroSection />
+          <HeroSection dict={dict} />
         </Suspense>
         {!hasActiveFilters && (
-          <FeaturedCollections properties={featuredProperties.slice(0, 2)} />
+          <FeaturedCollections properties={featuredProperties.slice(0, 2)} dict={dict.featured} />
         )}
         <NewMarket
           properties={properties}
@@ -73,6 +75,7 @@ export default async function Home({ searchParams }: HomeProps) {
           totalCount={totalCount}
           activeFilters={filters}
           searchParams={rawParams}
+          dict={dict.newMarket}
         />
       </main>
     </>

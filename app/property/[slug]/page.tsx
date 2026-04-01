@@ -3,6 +3,7 @@ import { getPropertyBySlug } from "../../../lib/properties";
 import Navbar from "../../components/Navbar";
 import MapWrapper from "../../components/MapWrapper";
 import { Metadata } from "next";
+import { getDictionary } from "../../utils/i18n";
 
 interface PropertyPageProps {
   params: Promise<{ slug: string }>;
@@ -26,6 +27,7 @@ export async function generateMetadata({ params }: PropertyPageProps): Promise<M
 export default async function PropertyPage({ params }: PropertyPageProps) {
   const p = await params;
   const property = await getPropertyBySlug(p.slug);
+  const dict = await getDictionary();
 
   if (!property) {
     notFound();
@@ -57,12 +59,12 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                   </span>
                 )}
                 <span className="bg-white/90 backdrop-blur text-nordic text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
-                  {property.type === 'sale' ? 'FOR SALE' : 'FOR RENT'}
+                  {property.type === 'sale' ? dict.propertyPage.forSale : dict.propertyPage.forRent}
                 </span>
               </div>
               <button className="absolute bottom-4 right-4 bg-white/90 hover:bg-white text-nordic px-4 py-2 rounded-lg text-sm font-medium shadow-lg backdrop-blur transition-all flex items-center gap-2">
                 <span className="material-icons text-sm">grid_view</span>
-                View All Photos
+                {dict.propertyPage.viewPhotos}
               </button>
             </div>
             
@@ -85,7 +87,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                 <div className="mb-4">
                   <h1 className="text-4xl font-display font-light text-nordic mb-2">
                     ${property.price.toLocaleString()}
-                    {property.type === 'rent' && <span className="text-lg text-nordic/50">/mo</span>}
+                    {property.type === 'rent' && <span className="text-lg text-nordic/50">{dict.propertyPage.perMonth}</span>}
                   </h1>
                   <p className="text-nordic/60 font-medium flex items-center gap-1">
                     <span className="material-icons text-mosque text-sm">location_on</span>
@@ -101,7 +103,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                     <h3 className="font-semibold text-nordic">Sarah Jenkins</h3>
                     <div className="flex items-center gap-1 text-xs text-mosque font-medium">
                       <span className="material-icons text-[14px]">star</span>
-                      <span>Top Rated Agent</span>
+                      <span>{dict.propertyPage.topRated}</span>
                     </div>
                   </div>
                   <div className="ml-auto flex gap-2">
@@ -117,11 +119,11 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                 <div className="space-y-3">
                   <button className="w-full bg-mosque hover:bg-primary-hover text-white py-4 px-6 rounded-lg font-medium transition-all shadow-lg shadow-mosque/20 flex items-center justify-center gap-2 group cursor-pointer">
                     <span className="material-icons text-xl group-hover:scale-110 transition-transform">calendar_today</span>
-                    Schedule Visit
+                    {dict.propertyPage.scheduleVisit}
                   </button>
                   <button className="w-full bg-transparent border border-nordic/10 hover:border-mosque text-nordic/80 hover:text-mosque py-4 px-6 rounded-lg font-medium transition-all flex items-center justify-center gap-2 cursor-pointer">
                     <span className="material-icons text-xl">mail_outline</span>
-                    Contact Agent
+                    {dict.propertyPage.contactAgent}
                   </button>
                 </div>
               </div>
@@ -141,34 +143,34 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
             
             {/* Features Stats */}
             <div className="bg-white p-8 rounded-xl shadow-sm border border-mosque/5">
-              <h2 className="text-lg font-semibold mb-6 text-nordic">Property Features</h2>
+              <h2 className="text-lg font-semibold mb-6 text-nordic">{dict.propertyPage.featuresTitle}</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
                   <span className="material-icons text-mosque text-2xl mb-2">square_foot</span>
                   <span className="text-xl font-bold text-nordic">{property.size}</span>
-                  <span className="text-xs uppercase tracking-wider text-nordic/50">Square Meters</span>
+                  <span className="text-xs uppercase tracking-wider text-nordic/50">{dict.propertyPage.sqm}</span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
                   <span className="material-icons text-mosque text-2xl mb-2">bed</span>
                   <span className="text-xl font-bold text-nordic">{property.beds}</span>
-                  <span className="text-xs uppercase tracking-wider text-nordic/50">Bedrooms</span>
+                  <span className="text-xs uppercase tracking-wider text-nordic/50">{dict.propertyPage.bedrooms}</span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
                   <span className="material-icons text-mosque text-2xl mb-2">shower</span>
                   <span className="text-xl font-bold text-nordic">{property.baths}</span>
-                  <span className="text-xs uppercase tracking-wider text-nordic/50">Bathrooms</span>
+                  <span className="text-xs uppercase tracking-wider text-nordic/50">{dict.propertyPage.bathrooms}</span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
                   <span className="material-icons text-mosque text-2xl mb-2">directions_car</span>
                   <span className="text-xl font-bold text-nordic">2</span>
-                  <span className="text-xs uppercase tracking-wider text-nordic/50">Garage</span>
+                  <span className="text-xs uppercase tracking-wider text-nordic/50">{dict.propertyPage.garage}</span>
                 </div>
               </div>
             </div>
 
             {/* Description */}
             <div className="bg-white p-8 rounded-xl shadow-sm border border-mosque/5">
-              <h2 className="text-lg font-semibold mb-4 text-nordic">About this home</h2>
+              <h2 className="text-lg font-semibold mb-4 text-nordic">{dict.propertyPage.about}</h2>
               <div className="prose prose-slate max-w-none text-nordic/70 leading-relaxed">
                 <p className="mb-4">
                   {property.title}. Experience modern luxury in this architecturally stunning home located in the heart of {property.location}. Designed with an emphasis on indoor-outdoor living, the residence features floor-to-ceiling glass walls that flood the interiors with natural light.
@@ -178,14 +180,14 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                 </p>
               </div>
               <button className="mt-4 text-mosque font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all cursor-pointer">
-                Read more
+                {dict.propertyPage.readMore}
                 <span className="material-icons text-sm">arrow_forward</span>
               </button>
             </div>
 
             {/* Amenities */}
             <div className="bg-white p-8 rounded-xl shadow-sm border border-mosque/5">
-              <h2 className="text-lg font-semibold mb-6 text-nordic">Amenities</h2>
+              <h2 className="text-lg font-semibold mb-6 text-nordic">{dict.propertyPage.amenitiesTitle}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
                 {["Smart Home System", "Swimming Pool", "Central Heating & Cooling", "Electric Vehicle Charging", "Private Gym", "Wine Cellar"].map((amenity, idx) => (
                   <div key={idx} className="flex items-center gap-3 text-nordic/70">
@@ -203,12 +205,12 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                   <span className="material-icons">calculate</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-nordic">Estimated Payment</h3>
-                  <p className="text-sm text-nordic/60">Starting from <strong className="text-mosque">${Math.floor(property.price * 0.005).toLocaleString()}/mo</strong> with 20% down</p>
+                  <h3 className="font-semibold text-nordic">{dict.propertyPage.estimatedPayment}</h3>
+                  <p className="text-sm text-nordic/60">{dict.propertyPage.startingFrom} <strong className="text-mosque">${Math.floor(property.price * 0.005).toLocaleString()}{dict.propertyPage.perMonth}</strong> {dict.propertyPage.withDown}</p>
                 </div>
               </div>
               <button className="whitespace-nowrap px-4 py-2 bg-white border border-nordic/10 rounded-lg text-sm font-semibold hover:border-mosque transition-colors text-nordic cursor-pointer">
-                Calculate Mortgage
+                {dict.propertyPage.calcMortgage}
               </button>
             </div>
 

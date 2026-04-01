@@ -1,6 +1,10 @@
 import Link from "next/link";
+import LanguageSelector from "./LanguageSelector";
+import { getDictionary, getLocale } from "@/app/utils/i18n";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const dict = await getDictionary();
+  const locale = await getLocale();
   return (
     <nav className="sticky top-0 z-50 bg-background-light/95  backdrop-blur-md border-b border-nordic-dark/10 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,12 +16,13 @@ export default function Navbar() {
             <span className="text-xl font-semibold tracking-tight text-nordic-dark ">LuxeEstate</span>
           </Link>
           <div className="hidden md:flex items-center space-x-8">
-            <a className="text-mosque font-medium text-sm border-b-2 border-mosque px-1 py-1" href="#">Buy</a>
-            <a className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all" href="#">Rent</a>
-            <a className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all" href="#">Sell</a>
-            <a className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all" href="#">Saved Homes</a>
+            <a className="text-mosque font-medium text-sm border-b-2 border-mosque px-1 py-1" href="#">{dict.navbar.buy}</a>
+            <a className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all" href="#">{dict.navbar.rent}</a>
+            <a className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all" href="#">{dict.navbar.sell}</a>
+            <a className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all" href="#">{dict.navbar.savedHomes}</a>
           </div>
           <div className="flex items-center space-x-6">
+            <LanguageSelector currentLocale={locale} />
             <button className="text-nordic-dark hover:text-mosque   transition-colors">
               <span className="material-icons">search</span>
             </button>

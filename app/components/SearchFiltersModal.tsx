@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 interface SearchFiltersModalProps {
   isOpen: boolean;
   onClose: () => void;
+  dict: any;
 }
 
 const AMENITIES = [
@@ -22,7 +23,7 @@ const PROPERTY_TYPES = ["Any Type", "House", "Apartment", "Villa", "Penthouse", 
 const MIN = 100000;
 const MAX = 10000000;
 
-export default function SearchFiltersModal({ isOpen, onClose }: SearchFiltersModalProps) {
+export default function SearchFiltersModal({ isOpen, onClose, dict }: SearchFiltersModalProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -109,11 +110,11 @@ export default function SearchFiltersModal({ isOpen, onClose }: SearchFiltersMod
       <div className="relative z-10 w-full max-w-2xl bg-white rounded-xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
         {/* Header */}
         <header className="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-white sticky top-0 z-20">
-          <h2 className="text-2xl font-semibold tracking-tight text-gray-900">Filters</h2>
+          <h2 className="text-2xl font-semibold tracking-tight text-gray-900">{dict.filters}</h2>
           <button
             onClick={onClose}
             className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500"
-            aria-label="Close filters"
+            aria-label={dict.close}
           >
             <span className="material-icons">close</span>
           </button>
@@ -125,7 +126,7 @@ export default function SearchFiltersModal({ isOpen, onClose }: SearchFiltersMod
           {/* Location */}
           <section>
             <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
-              Location
+              {dict.location}
             </label>
             <div className="relative group">
               <span className="material-icons absolute left-4 top-3.5 text-gray-400 group-focus-within:text-mosque transition-colors">
@@ -135,7 +136,7 @@ export default function SearchFiltersModal({ isOpen, onClose }: SearchFiltersMod
                 type="text"
                 value={location}
                 onChange={e => setLocation(e.target.value)}
-                placeholder="City, neighborhood, or address"
+                placeholder={dict.locationPlaceholder}
                 className="w-full pl-12 pr-4 py-3 bg-gray-50 border-0 rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-mosque focus:bg-white transition-all shadow-sm"
               />
             </div>
@@ -145,7 +146,7 @@ export default function SearchFiltersModal({ isOpen, onClose }: SearchFiltersMod
           <section>
             <div className="flex justify-between items-end mb-4">
               <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                Price Range
+                {dict.priceRange}
               </label>
               <span className="text-sm font-medium text-mosque">
                 {formatPrice(minPrice)} – {formatPrice(maxPrice)}
@@ -174,7 +175,7 @@ export default function SearchFiltersModal({ isOpen, onClose }: SearchFiltersMod
 
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-gray-50 p-3 rounded-lg border border-transparent focus-within:border-mosque/30 transition-colors">
-                <label className="block text-[10px] text-gray-500 uppercase font-medium mb-1">Min Price</label>
+                <label className="block text-[10px] text-gray-500 uppercase font-medium mb-1">{dict.minPrice}</label>
                 <div className="flex items-center">
                   <span className="text-gray-400 mr-1">$</span>
                   <input
@@ -185,7 +186,7 @@ export default function SearchFiltersModal({ isOpen, onClose }: SearchFiltersMod
                 </div>
               </div>
               <div className="bg-gray-50 p-3 rounded-lg border border-transparent focus-within:border-mosque/30 transition-colors">
-                <label className="block text-[10px] text-gray-500 uppercase font-medium mb-1">Max Price</label>
+                <label className="block text-[10px] text-gray-500 uppercase font-medium mb-1">{dict.maxPrice}</label>
                 <div className="flex items-center">
                   <span className="text-gray-400 mr-1">$</span>
                   <input
@@ -202,7 +203,7 @@ export default function SearchFiltersModal({ isOpen, onClose }: SearchFiltersMod
           <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-3">
               <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                Property Type
+                {dict.propertyType}
               </label>
               <div className="relative">
                 <select
@@ -219,13 +220,13 @@ export default function SearchFiltersModal({ isOpen, onClose }: SearchFiltersMod
             <div className="space-y-4">
               {/* Beds */}
               <div className="flex justify-between items-center">
-                <span className="text-sm font-medium text-gray-900">Bedrooms</span>
+                <span className="text-sm font-medium text-gray-900">{dict.bedrooms}</span>
                 <div className="flex items-center space-x-3 bg-gray-50 rounded-full p-1">
                   <button onClick={() => setBeds(b => Math.max(0, b - 1))} disabled={beds === 0}
                     className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-gray-500 hover:text-mosque disabled:opacity-40 transition-colors">
                     <span className="material-icons text-base">remove</span>
                   </button>
-                  <span className="text-sm font-semibold w-6 text-center">{beds === 0 ? "Any" : `${beds}+`}</span>
+                  <span className="text-sm font-semibold w-6 text-center">{beds === 0 ? dict.any : `${beds}+`}</span>
                   <button onClick={() => setBeds(b => b + 1)}
                     className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-mosque hover:bg-mosque hover:text-white transition-colors">
                     <span className="material-icons text-base">add</span>
@@ -234,13 +235,13 @@ export default function SearchFiltersModal({ isOpen, onClose }: SearchFiltersMod
               </div>
               {/* Baths */}
               <div className="flex justify-between items-center">
-                <span className="text-sm font-medium text-gray-900">Bathrooms</span>
+                <span className="text-sm font-medium text-gray-900">{dict.bathrooms}</span>
                 <div className="flex items-center space-x-3 bg-gray-50 rounded-full p-1">
                   <button onClick={() => setBaths(b => Math.max(0, b - 1))} disabled={baths === 0}
                     className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-gray-500 hover:text-mosque disabled:opacity-40 transition-colors">
                     <span className="material-icons text-base">remove</span>
                   </button>
-                  <span className="text-sm font-semibold w-6 text-center">{baths === 0 ? "Any" : `${baths}+`}</span>
+                  <span className="text-sm font-semibold w-6 text-center">{baths === 0 ? dict.any : `${baths}+`}</span>
                   <button onClick={() => setBaths(b => b + 1)}
                     className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-mosque hover:bg-mosque hover:text-white transition-colors">
                     <span className="material-icons text-base">add</span>
@@ -253,7 +254,7 @@ export default function SearchFiltersModal({ isOpen, onClose }: SearchFiltersMod
           {/* Amenities */}
           <section>
             <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">
-              Amenities &amp; Features
+              {dict.amenities}
             </label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {AMENITIES.map(a => {
@@ -263,7 +264,7 @@ export default function SearchFiltersModal({ isOpen, onClose }: SearchFiltersMod
                     <input type="checkbox" checked={active} onChange={() => toggleAmenity(a.id)} className="sr-only peer" />
                     <div className={`h-full px-4 py-3 rounded-lg border text-sm flex items-center justify-center gap-2 transition-all ${active ? "border-mosque bg-mosque/10 text-mosque font-medium" : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"}`}>
                       <span className={`material-icons text-lg ${active ? "text-mosque" : "text-gray-400"}`}>{a.icon}</span>
-                      {a.label}
+                      {dict.amenityLabels[a.id] || a.label}
                     </div>
                     {active && <div className="absolute top-2 right-2 w-2 h-2 bg-mosque rounded-full" />}
                   </label>
@@ -279,13 +280,13 @@ export default function SearchFiltersModal({ isOpen, onClose }: SearchFiltersMod
             onClick={clearAll}
             className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors underline decoration-gray-300 underline-offset-4"
           >
-            Clear all filters
+            {dict.clearAll}
           </button>
           <button
             onClick={applyFilters}
             className="bg-mosque hover:bg-mosque/90 text-white px-8 py-3 rounded-lg font-medium shadow-lg shadow-mosque/30 transition-all hover:shadow-mosque/40 flex items-center gap-2 active:scale-95"
           >
-            Show Results
+            {dict.showResults}
             <span className="material-icons text-sm">arrow_forward</span>
           </button>
         </footer>
