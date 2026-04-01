@@ -4,6 +4,7 @@ export interface Property {
   location: string;
   price: number;
   type: "sale" | "rent";
+  category?: string | null;
   beds: number;
   baths: number;
   size: number;
@@ -12,4 +13,13 @@ export interface Property {
   created_at: string;
   slug: string;
   images: string[];
+}
+
+export interface PropertyFilters {
+  query?: string;
+  category?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  minBeds?: number;
+  minBaths?: number;
 }

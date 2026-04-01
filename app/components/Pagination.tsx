@@ -1,9 +1,16 @@
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
+  searchParams?: Record<string, string>;
 }
 
-export default function Pagination({ currentPage, totalPages }: PaginationProps) {
+function buildPageUrl(page: number, searchParams: Record<string, string> = {}) {
+  const params = new URLSearchParams(searchParams);
+  params.set("page", String(page));
+  return `/?${params.toString()}`;
+}
+
+export default function Pagination({ currentPage, totalPages, searchParams = {} }: PaginationProps) {
   if (totalPages <= 1) return null;
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -13,7 +20,7 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
       {/* Previous */}
       {currentPage > 1 ? (
         <a
-          href={`?page=${currentPage - 1}`}
+          href={buildPageUrl(currentPage - 1, searchParams)}
           className="flex items-center gap-1 px-4 py-2 rounded-lg border border-nordic-dark/10 text-nordic-dark text-sm font-medium hover:border-mosque hover:text-mosque transition-all bg-white"
         >
           <span className="material-icons text-base">chevron_left</span>
@@ -31,7 +38,7 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
         {pages.map((page) => (
           <a
             key={page}
-            href={`?page=${page}`}
+            href={buildPageUrl(page, searchParams)}
             className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium transition-all ${
               page === currentPage
                 ? "bg-nordic-dark text-white shadow-sm"
@@ -46,7 +53,7 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
       {/* Next */}
       {currentPage < totalPages ? (
         <a
-          href={`?page=${currentPage + 1}`}
+          href={buildPageUrl(currentPage + 1, searchParams)}
           className="flex items-center gap-1 px-4 py-2 rounded-lg border border-nordic-dark/10 text-nordic-dark text-sm font-medium hover:border-mosque hover:text-mosque transition-all bg-white"
         >
           Next
