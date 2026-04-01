@@ -75,11 +75,21 @@
     "bathrooms": "Salles de bain",
     "garage": "Garage",
     "about": "À propos de cette maison",
+    "descriptionPart1": "{title}. Découvrez le luxe moderne dans cette maison à l'architecture époustouflante située au cœur de {location}. Conçue en mettant l'accent sur la vie intérieur-extérieur, la résidence dispose de murs en verre du sol au plafond qui inondent les intérieurs de lumière naturelle.",
+    "descriptionPart2": "La cuisine à aire ouverte est équipée d'appareils haut de gamme et d'armoires sur mesure, idéale pour les passionnés de gastronomie. Retirez-vous dans la suite principale, un sanctuaire de relaxation avec une salle de bain de style spa et un balcon privé.",
     "readMore": "En savoir plus",
     "amenitiesTitle": "Commodités",
     "estimatedPayment": "Paiement estimé",
     "startingFrom": "À partir de",
     "withDown": "avec 20% d'acompte",
-    "calcMortgage": "Calculer l'hypothèque"
+    "calcMortgage": "Calculer l'hypothèque",
+    "amenitiesList": {
+      "smartHome": "Système de Maison Intelligente",
+      "pool": "Piscine",
+      "heatingCooling": "Chauffage et Climatisation Centraux",
+      "evCharging": "Recharge pour Véhicules Électriques",
+      "gym": "Salle de Sport Privée",
+      "wineCellar": "Cave à Vin"
+    }
   }
 }

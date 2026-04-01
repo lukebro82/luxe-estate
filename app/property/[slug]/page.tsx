@@ -173,10 +173,10 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
               <h2 className="text-lg font-semibold mb-4 text-nordic">{dict.propertyPage.about}</h2>
               <div className="prose prose-slate max-w-none text-nordic/70 leading-relaxed">
                 <p className="mb-4">
-                  {property.title}. Experience modern luxury in this architecturally stunning home located in the heart of {property.location}. Designed with an emphasis on indoor-outdoor living, the residence features floor-to-ceiling glass walls that flood the interiors with natural light.
+                  {dict.propertyPage.descriptionPart1.replace('{title}', property.title).replace('{location}', property.location)}
                 </p>
                 <p>
-                  The open-concept kitchen is equipped with top-of-the-line appliances and custom cabinetry, perfect for culinary enthusiasts. Retreat to the primary suite, a sanctuary of relaxation with a spa-inspired bath and private balcony.
+                  {dict.propertyPage.descriptionPart2}
                 </p>
               </div>
               <button className="mt-4 text-mosque font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all cursor-pointer">
@@ -189,7 +189,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
             <div className="bg-white p-8 rounded-xl shadow-sm border border-mosque/5">
               <h2 className="text-lg font-semibold mb-6 text-nordic">{dict.propertyPage.amenitiesTitle}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
-                {["Smart Home System", "Swimming Pool", "Central Heating & Cooling", "Electric Vehicle Charging", "Private Gym", "Wine Cellar"].map((amenity, idx) => (
+                {Object.values(dict.propertyPage.amenitiesList).map((amenity, idx) => (
                   <div key={idx} className="flex items-center gap-3 text-nordic/70">
                     <span className="material-icons text-mosque/60 text-sm">check_circle</span>
                     <span>{amenity}</span>

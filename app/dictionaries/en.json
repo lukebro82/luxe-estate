@@ -75,11 +75,21 @@
     "bathrooms": "Bathrooms",
     "garage": "Garage",
     "about": "About this home",
+    "descriptionPart1": "{title}. Experience modern luxury in this architecturally stunning home located in the heart of {location}. Designed with an emphasis on indoor-outdoor living, the residence features floor-to-ceiling glass walls that flood the interiors with natural light.",
+    "descriptionPart2": "The open-concept kitchen is equipped with top-of-the-line appliances and custom cabinetry, perfect for culinary enthusiasts. Retreat to the primary suite, a sanctuary of relaxation with a spa-inspired bath and private balcony.",
     "readMore": "Read more",
     "amenitiesTitle": "Amenities",
     "estimatedPayment": "Estimated Payment",
     "startingFrom": "Starting from",
     "withDown": "with 20% down",
-    "calcMortgage": "Calculate Mortgage"
+    "calcMortgage": "Calculate Mortgage",
+    "amenitiesList": {
+      "smartHome": "Smart Home System",
+      "pool": "Swimming Pool",
+      "heatingCooling": "Central Heating & Cooling",
+      "evCharging": "Electric Vehicle Charging",
+      "gym": "Private Gym",
+      "wineCellar": "Wine Cellar"
+    }
   }
 }

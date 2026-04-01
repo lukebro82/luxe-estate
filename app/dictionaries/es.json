@@ -75,11 +75,21 @@
     "bathrooms": "Baños",
     "garage": "Garaje",
     "about": "Acerca de esta propiedad",
+    "descriptionPart1": "{title}. Experimente el lujo moderno en esta casa arquitectónicamente impresionante ubicada en el corazón de {location}. Diseñada con énfasis en la vida interior-exterior, la residencia cuenta con paredes de vidrio de piso a techo que inundan los interiores con luz natural.",
+    "descriptionPart2": "La cocina de concepto abierto está equipada con electrodomésticos de primera línea y gabinetes personalizados, perfecta para los entusiastas culinarios. Retírese a la suite principal, un santuario de relajación con un baño inspirado en un spa y balcón privado.",
     "readMore": "Leer más",
     "amenitiesTitle": "Comodidades",
     "estimatedPayment": "Pago Estimado",
     "startingFrom": "Desde",
     "withDown": "con 20% inicial",
-    "calcMortgage": "Calcular Hipoteca"
+    "calcMortgage": "Calcular Hipoteca",
+    "amenitiesList": {
+      "smartHome": "Sistema de Casa Inteligente",
+      "pool": "Piscina",
+      "heatingCooling": "Calefacción y Refrigeración Central",
+      "evCharging": "Carga de Vehículos Eléctricos",
+      "gym": "Gimnasio Privado",
+      "wineCellar": "Bodega de Vinos"
+    }
   }
 }

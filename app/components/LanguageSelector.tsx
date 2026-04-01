@@ -1,56 +1,70 @@
-'use client'
+"use client";
 
-import { useState, useTransition, useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
-import { setLocale } from '@/app/actions/setLocale'
+import { useState, useTransition, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { setLocale } from "@/app/actions/setLocale";
+import ReactCountryFlag from "react-country-flag";
 
 type Props = {
   currentLocale: string;
-}
+};
 
 const locales = [
-  { code: 'es', label: '🇪🇸 Español' },
-  { code: 'en', label: '🇬🇧 English' },
-  { code: 'fr', label: '🇫🇷 Français' }
-]
+  { code: "es", label: "Español", countryCode: "ES" },
+  { code: "en", label: "English", countryCode: "US" },
+  { code: "fr", label: "Français", countryCode: "FR" },
+];
 
 export default function LanguageSelector({ currentLocale }: Props) {
-  const router = useRouter()
-  const [isPending, startTransition] = useTransition()
-  const [isOpen, setIsOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // Close when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false)
+        setIsOpen(false);
       }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleSelect = (locale: string) => {
-    setIsOpen(false)
+    setIsOpen(false);
     startTransition(async () => {
-      await setLocale(locale)
-      router.refresh()
-    })
-  }
+      await setLocale(locale);
+      router.refresh();
+    });
+  };
 
-  const currentSettings = locales.find((l) => l.code === currentLocale) || locales[0]
+  const currentSettings =
+    locales.find((l) => l.code === currentLocale) || locales[0];
 
   return (
     <div className="relative" ref={menuRef}>
-      <button 
+      <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center gap-1 text-nordic-dark hover:text-mosque px-2 py-1 transition-colors text-sm font-medium ${isPending ? 'opacity-50' : ''}`}
+        className={`flex items-center gap-1.5 text-nordic-dark hover:text-mosque px-2 py-1 transition-colors font-medium ${isPending ? "opacity-50" : ""}`}
         disabled={isPending}
         aria-label="Select Language"
       >
-        <span className="material-icons text-sm">language</span>
-        <span className="hidden md:inline text-[16px]">{currentSettings.label.split(' ')[0]}</span>
+        <ReactCountryFlag
+          countryCode={currentSettings.countryCode}
+          svg
+          style={{
+            width: "1.1em",
+            height: "1.1em",
+            borderRadius: "2px",
+            objectFit: "cover",
+          }}
+          title={currentSettings.label}
+        />
+        <span className="hidden md:inline text-sm font-semibold">
+          {currentSettings.code.toUpperCase()}
+        </span>
       </button>
 
       {isOpen && (
@@ -60,10 +74,25 @@ export default function LanguageSelector({ currentLocale }: Props) {
               key={locale.code}
               onClick={() => handleSelect(locale.code)}
               className={`w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors flex items-center justify-between ${
-                currentLocale === locale.code ? 'font-medium text-mosque bg-gray-50/50' : 'text-nordic-dark/80'
+                currentLocale === locale.code
+                  ? "font-medium text-mosque bg-gray-50/50"
+                  : "text-nordic-dark/80"
               }`}
             >
-              {locale.label}
+              <div className="flex items-center gap-2">
+                <ReactCountryFlag
+                  countryCode={locale.countryCode}
+                  svg
+                  style={{
+                    width: "1.1em",
+                    height: "1.1em",
+                    borderRadius: "2px",
+                    objectFit: "cover",
+                  }}
+                  title={locale.label}
+                />
+                <span>{locale.label}</span>
+              </div>
               {currentLocale === locale.code && (
                 <span className="material-icons text-[16px]">check</span>
               )}
@@ -72,5 +101,5 @@ export default function LanguageSelector({ currentLocale }: Props) {
         </div>
       )}
     </div>
-  )
+  );
 }
