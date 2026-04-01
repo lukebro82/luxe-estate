@@ -39,6 +39,16 @@ export default async function Home({ searchParams }: HomeProps) {
   if (params.minBeds) rawParams.minBeds = params.minBeds;
   if (params.minBaths) rawParams.minBaths = params.minBaths;
 
+  // Determine if any filters or search are active
+  const hasActiveFilters = Boolean(
+    params.q ||
+    params.category ||
+    params.minPrice ||
+    params.maxPrice ||
+    params.minBeds ||
+    params.minBaths
+  );
+
   const [featuredProperties, { properties, totalCount }] = await Promise.all([
     getFeaturedProperties(),
     getProperties(currentPage, PAGE_SIZE, filters),
@@ -53,7 +63,9 @@ export default async function Home({ searchParams }: HomeProps) {
         <Suspense fallback={<div className="py-12 md:py-16 h-48" />}>
           <HeroSection />
         </Suspense>
-        <FeaturedCollections properties={featuredProperties} />
+        {!hasActiveFilters && (
+          <FeaturedCollections properties={featuredProperties.slice(0, 2)} />
+        )}
         <NewMarket
           properties={properties}
           currentPage={currentPage}
