@@ -8,9 +8,10 @@ import { useState } from "react";
 interface UserMenuProps {
   user: any;
   signInText: string;
+  isAdmin?: boolean;
 }
 
-export default function UserMenu({ user, signInText }: UserMenuProps) {
+export default function UserMenu({ user, signInText, isAdmin }: UserMenuProps) {
   const router = useRouter();
   const supabase = createClient();
   const [isOpen, setIsOpen] = useState(false);
@@ -50,6 +51,14 @@ export default function UserMenu({ user, signInText }: UserMenuProps) {
                 {user.user_metadata?.name || user.email}
               </p>
             </div>
+            {isAdmin && (
+              <a
+                href="/admin"
+                className="block w-full text-left px-4 py-2 text-sm text-nordic-dark hover:bg-gray-50 dark:text-white dark:hover:bg-[#152e2a] transition-colors border-b border-gray-100 dark:border-primary/20"
+              >
+                Admin Panel
+              </a>
+            )}
             <button
               onClick={() => {
                 setIsOpen(false);

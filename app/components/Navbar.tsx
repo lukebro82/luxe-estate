@@ -10,6 +10,16 @@ export default async function Navbar() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
+  let isAdmin = false;
+  if (user) {
+    const { data: roleData } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id)
+      .single();
+    isAdmin = roleData?.role === "admin";
+  }
+
   return (
     <nav className="sticky top-0 z-50 bg-background-light/95  backdrop-blur-md border-b border-nordic-dark/10 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,7 +45,7 @@ export default async function Navbar() {
               <span className="material-icons">notifications_none</span>
               <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-background-light "></span>
             </button>
-            <UserMenu user={user} signInText={dict.navbar.signIn} />
+            <UserMenu user={user} signInText={dict.navbar.signIn} isAdmin={isAdmin} />
           </div>
         </div>
       </div>
