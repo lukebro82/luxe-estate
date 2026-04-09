@@ -3,7 +3,8 @@
     "buy": "Comprar",
     "rent": "Alquilar",
     "sell": "Vender",
-    "savedHomes": "Guardados"
+    "savedHomes": "Guardados",
+    "signIn": "Iniciar sesión"
   },
   "hero": {
     "title1": "Encuentra tu",
@@ -91,5 +92,16 @@
       "gym": "Gimnasio Privado",
       "wineCellar": "Bodega de Vinos"
     }
+  },
+  "loginPage": {
+    "title": "Bienvenido a LuxeEstate",
+    "subtitle": "Desbloquea propiedades exclusivas en todo el mundo.",
+    "continueGoogle": "Continuar con Google",
+    "continueGithub": "Continuar con GitHub",
+    "noAccount": "¿No tienes una cuenta?",
+    "signUp": "Regístrate",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfService": "Términos de Servicio",
+    "helpCenter": "Centro de Ayuda"
   }
 }

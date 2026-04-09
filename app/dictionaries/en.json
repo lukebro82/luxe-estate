@@ -3,7 +3,8 @@
     "buy": "Buy",
     "rent": "Rent",
     "sell": "Sell",
-    "savedHomes": "Saved Homes"
+    "savedHomes": "Saved Homes",
+    "signIn": "Sign in"
   },
   "hero": {
     "title1": "Find your",
@@ -91,5 +92,16 @@
       "gym": "Private Gym",
       "wineCellar": "Wine Cellar"
     }
+  },
+  "loginPage": {
+    "title": "Welcome to LuxeEstate",
+    "subtitle": "Unlock exclusive properties worldwide.",
+    "continueGoogle": "Continue with Google",
+    "continueGithub": "Continue with GitHub",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "helpCenter": "Help Center"
   }
 }

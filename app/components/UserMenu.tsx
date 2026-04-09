@@ -7,9 +7,10 @@ import { useState } from "react";
 
 interface UserMenuProps {
   user: any;
+  signInText: string;
 }
 
-export default function UserMenu({ user }: UserMenuProps) {
+export default function UserMenu({ user, signInText }: UserMenuProps) {
   const router = useRouter();
   const supabase = createClient();
   const [isOpen, setIsOpen] = useState(false);
@@ -21,8 +22,8 @@ export default function UserMenu({ user }: UserMenuProps) {
 
   if (!user) {
     return (
-      <Link href="/login" className="flex items-center gap-2 pl-2 border-l border-nordic-dark/10 ml-2 text-sm font-medium hover:text-primary transition-colors">
-        Sign in
+      <Link href="/login" className="flex items-center gap-2 pl-2 border-l border-nordic-dark/10 ml-2 text-sm font-medium hover:text-mosque transition-colors text-nordic-dark">
+        {signInText}
       </Link>
     );
   }
