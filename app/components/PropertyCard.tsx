@@ -32,7 +32,7 @@ export default function PropertyCard({ property, variant = 'standard', className
               </p>
             </div>
             <span className="text-xl font-semibold text-mosque ">
-              ${property.price.toLocaleString()}
+              ${property.price.toLocaleString("en-US")}
               {property.type === 'rent' && <span className="text-sm font-normal text-nordic-muted">/mo</span>}
             </span>
           </div>
@@ -44,7 +44,7 @@ export default function PropertyCard({ property, variant = 'standard', className
               <span className="material-icons text-lg">bathtub</span> {property.baths} Baths
             </div>
             <div className="flex items-center gap-2 text-nordic-muted text-sm">
-              <span className="material-icons text-lg">square_foot</span> {property.size.toLocaleString()} m²
+              <span className="material-icons text-lg">square_foot</span> {property.size.toLocaleString("en-US")} m²
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ export default function PropertyCard({ property, variant = 'standard', className
       <div className="p-4 flex flex-col grow">
         <div className="flex justify-between items-baseline mb-2">
           <h3 className="font-bold text-lg text-nordic-dark ">
-            ${property.price.toLocaleString()}
+            ${property.price.toLocaleString("en-US")}
             {property.type === 'rent' && <span className="text-sm font-normal text-nordic-muted">/mo</span>}
           </h3>
         </div>
@@ -81,7 +81,7 @@ export default function PropertyCard({ property, variant = 'standard', className
             <span className="material-icons text-sm text-mosque/80">bathtub</span> {property.baths}
           </div>
           <div className="flex items-center gap-1 text-nordic-muted text-xs">
-            <span className="material-icons text-sm text-mosque/80">square_foot</span> {property.size.toLocaleString()}m²
+            <span className="material-icons text-sm text-mosque/80">square_foot</span> {property.size.toLocaleString("en-US")}m²
           </div>
         </div>
       </div>

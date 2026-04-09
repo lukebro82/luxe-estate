@@ -115,7 +115,7 @@ export default function PropertiesTable({ properties }: { properties: Property[]
                 {/* Price */}
                 <td className="px-4 py-4">
                   <span className="font-bold text-[#19322F]">
-                    ${p.price.toLocaleString()}
+                    ${p.price.toLocaleString("en-US")}
                   </span>
                   <span className="text-xs text-[#5C706D] ml-1">
                     {p.type === "rent" ? "/mes" : ""}

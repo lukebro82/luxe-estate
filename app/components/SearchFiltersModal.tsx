@@ -179,7 +179,7 @@ export default function SearchFiltersModal({ isOpen, onClose, dict }: SearchFilt
                 <div className="flex items-center">
                   <span className="text-gray-400 mr-1">$</span>
                   <input
-                    type="text" value={minPrice.toLocaleString()}
+                    type="text" value={minPrice.toLocaleString("en-US")}
                     onChange={e => { const v = Number(e.target.value.replace(/,/g, "")); if (!isNaN(v) && v < maxPrice) setMinPrice(v); }}
                     className="w-full bg-transparent border-0 p-0 text-gray-900 font-medium focus:ring-0 text-sm"
                   />
@@ -190,7 +190,7 @@ export default function SearchFiltersModal({ isOpen, onClose, dict }: SearchFilt
                 <div className="flex items-center">
                   <span className="text-gray-400 mr-1">$</span>
                   <input
-                    type="text" value={maxPrice.toLocaleString()}
+                    type="text" value={maxPrice.toLocaleString("en-US")}
                     onChange={e => { const v = Number(e.target.value.replace(/,/g, "")); if (!isNaN(v) && v > minPrice) setMaxPrice(v); }}
                     className="w-full bg-transparent border-0 p-0 text-gray-900 font-medium focus:ring-0 text-sm"
                   />
