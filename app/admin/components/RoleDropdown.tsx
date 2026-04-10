@@ -42,21 +42,21 @@ export default function RoleDropdown({
   return (
     <div
       ref={dropdownRef}
-      className="absolute top-full right-0 mt-2 w-48 rounded-lg shadow-lg bg-primary ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden z-50 origin-top-right"
+      className="absolute top-full right-0 mt-2 w-48 rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.12)] bg-[#006655] focus:outline-none overflow-hidden z-50 origin-top-right border border-[#005544]"
     >
       <div className="py-1" role="menu">
         {roles.map((role) => (
           <button
             key={role}
             onClick={() => onSelectRole(role)}
-            className={`group flex items-center w-full px-4 py-3 text-xs transition-colors ${
+            className={`group flex items-center w-full px-4 py-3 text-[13px] transition-colors ${
               currentRole === role
-                ? "bg-white/20 text-white font-medium"
-                : "text-white/70 hover:bg-white/10 hover:text-white"
+                ? "bg-[#005547] text-white font-medium"
+                : "text-[#b2ccc6] hover:bg-[#005547] hover:text-white"
             }`}
             role="menuitem"
           >
-            <span className="material-icons text-sm mr-3">
+            <span className="material-icons text-base mr-3 opacity-80 group-hover:opacity-100 transition-opacity">
               {roleIconMap[role]}
             </span>
             {getRoleLabel(role, dict)}

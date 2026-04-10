@@ -99,20 +99,19 @@ export default function AdminUsersClient({
       </div>
 
       {/* Tab Navigation */}
-      <div className="mt-8 flex gap-6 border-b border-nordic-muted/10 overflow-x-auto mb-8">
+      <div className="mt-8 flex gap-8 border-b border-gray-100 overflow-x-auto mb-8">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() =>
               setRoleFilter(tab.id as "all" | "admin" | "user" | "agent")
             }
-            className={`pb-3 text-sm font-semibold transition-colors whitespace-nowrap flex items-center gap-2 ${
+            className={`pb-3 text-[13px] font-semibold transition-colors whitespace-nowrap flex items-center gap-2 ${
               roleFilter === tab.id
-                ? "text-primary border-b-2 border-primary"
-                : "text-nordic-muted hover:text-nordic-dark"
+                ? "text-[#006655] border-b-[3px] border-[#006655]"
+                : "text-[#8b9d99] hover:text-[#42524f]"
             }`}
           >
-            <span className="material-icons text-lg">{tab.icon}</span>
             {tab.label}
           </button>
         ))}

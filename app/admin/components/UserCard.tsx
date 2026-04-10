@@ -58,9 +58,9 @@ export default function UserCard({
 
   const statusColor = getStatusDot();
   const statusBgMap: Record<string, string> = {
-    green: "bg-green-400",
-    yellow: "bg-yellow-400",
-    gray: "bg-gray-400",
+    green: "bg-[#29bf73]",
+    yellow: "bg-[#f5c342]",
+    gray: "bg-[#d1d5db]",
   };
 
   return (
@@ -115,8 +115,8 @@ export default function UserCard({
             </span>
             {roleBadge.label}
           </span>
-          <div className="flex items-center text-xs text-nordic-muted">
-            <span className="material-icons text-sm mr-1 text-primary">
+          <div className="flex items-center text-[13px] font-medium text-[#8b9d99]">
+            <span className="material-icons text-[16px] mr-1.5 text-[#006655]">
               check_circle
             </span>
             {dict?.active || "Active"}
@@ -144,7 +144,11 @@ export default function UserCard({
         <div className="col-span-12 md:col-span-2 w-full flex justify-end relative">
           <button
             onClick={() => setShowDropdown(!showDropdown)}
-            className="inline-flex items-center px-4 py-2 border border-nordic-muted/20 bg-white shadow-sm text-xs font-medium rounded-lg text-nordic-dark hover:bg-nordic-dark hover:text-white focus:outline-none transition-colors w-full md:w-auto justify-center group-hover:bg-white group-hover:shadow-sm"
+            className={`inline-flex items-center px-4 py-2 border shadow-sm text-xs font-medium rounded-lg transition-colors w-full md:w-auto justify-center ${
+              showDropdown
+                ? "bg-[#006655] text-white border-[#006655]"
+                : "bg-white border-gray-200 text-[#19322f] hover:bg-gray-50"
+            }`}
           >
             {dict?.changeRole || "Change Role"}
             <span className="material-icons text-base ml-2">

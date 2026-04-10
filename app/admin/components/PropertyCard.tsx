@@ -28,24 +28,37 @@ export default function PropertyCard({
   const getStatusBadge = (type: string) => {
     switch (type) {
       case "sale":
+      case "active":
         return {
-          bg: "bg-hint-green",
-          text: "text-primary",
+          bg: "bg-[#d9ecc8]",
+          text: "text-[#006655]",
           label: "Active",
-          dot: "bg-primary",
+          border: "border border-[#b9d9a0]",
+          dot: "bg-[#006655]",
         };
       case "rent":
+      case "pending":
         return {
-          bg: "bg-hint-green",
-          text: "text-primary",
-          label: "Active",
-          dot: "bg-primary",
+          bg: "bg-[#ffe8d6]",
+          text: "text-[#ed6c02]",
+          label: "Pending",
+          border: "border border-[#fcd0a1]",
+          dot: "bg-[#ed6c02]",
+        };
+      case "sold":
+        return {
+          bg: "bg-[#f3f4f6]",
+          text: "text-[#5c706d]",
+          label: "Sold",
+          border: "border border-[#e5e7eb]",
+          dot: "bg-[#5c706d]",
         };
       default:
         return {
           bg: "bg-gray-100",
           text: "text-gray-600",
           label: "Inactive",
+          border: "border border-gray-200",
           dot: "bg-gray-500",
         };
     }
@@ -115,7 +128,7 @@ export default function PropertyCard({
       {/* Status */}
       <div className="col-span-6 md:col-span-2">
         <span
-          className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border border-primary/10 ${status.bg} ${status.text}`}
+          className={`inline-flex items-center px-2.5 py-1 rounded-full text-[13px] font-medium ${status.border} ${status.bg} ${status.text}`}
         >
           <span
             className={`w-1.5 h-1.5 rounded-full ${status.dot} mr-1.5`}
