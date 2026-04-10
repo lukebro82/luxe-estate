@@ -3,7 +3,13 @@
 import { useState, useTransition } from "react";
 import { updateUserRole, type AdminUser } from "@/app/actions/admin";
 
-export default function UsersTable({ users }: { users: AdminUser[] }) {
+export default function UsersTable({
+  users,
+  loadError,
+}: {
+  users: AdminUser[];
+  loadError?: string;
+}) {
   const [list, setList] = useState(users);
   const [isPending, startTransition] = useTransition();
   const [search, setSearch] = useState("");
@@ -35,6 +41,19 @@ export default function UsersTable({ users }: { users: AdminUser[] }) {
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      {loadError && (
+        <div className="px-5 py-3 bg-amber-50 border-b border-amber-100 text-sm text-amber-900">
+          <span className="font-semibold">No se pudo cargar la lista: </span>
+          {loadError}
+          <p className="mt-1 text-amber-800/90 text-xs">
+            Ejecutá el SQL de{" "}
+            <code className="rounded bg-amber-100/80 px-1">
+              supabase/migrations/20260410170000_get_users_for_admin.sql
+            </code>{" "}
+            en el SQL Editor de Supabase si aún no existe la función RPC.
+          </p>
+        </div>
+      )}
       {/* Header */}
       <div className="p-5 border-b border-gray-100 flex items-center gap-3">
         <div className="relative flex-1 max-w-xs">

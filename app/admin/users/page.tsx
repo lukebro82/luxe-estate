@@ -2,7 +2,7 @@ import UsersTable from "../components/UsersTable";
 import { getAllUsers } from "@/app/actions/admin";
 
 export default async function AdminUsersPage() {
-  const users = await getAllUsers();
+  const { users, error } = await getAllUsers();
 
   return (
     <div>
@@ -15,7 +15,7 @@ export default async function AdminUsersPage() {
         </p>
       </div>
 
-      <UsersTable users={users} />
+      <UsersTable users={users} loadError={error} />
     </div>
   );
 }

@@ -52,17 +52,28 @@ export async function getAdminStats(): Promise<AdminStats> {
 
 // ─── Users ────────────────────────────────────────────────────────────────────
 
-export async function getAllUsers(): Promise<AdminUser[]> {
+export type GetAllUsersResult = {
+  users: AdminUser[];
+  error?: string;
+};
+
+export async function getAllUsers(): Promise<GetAllUsersResult> {
   const supabase = await createClient();
 
-  // Get auth user metadata via SECURITY DEFINER RPC
   const { data: authUsers, error: rpcError } = await supabase.rpc(
     "get_users_for_admin"
   );
 
-  if (rpcError || !authUsers) return [];
+  if (rpcError) {
+    console.error("[getAllUsers] get_users_for_admin:", rpcError.message);
+    return { users: [], error: rpcError.message };
+  }
 
-  // Get roles for all users
+  const rows = Array.isArray(authUsers) ? authUsers : [];
+  if (authUsers == null) {
+    return { users: [], error: "La función no devolvió datos." };
+  }
+
   const { data: roles } = await supabase
     .from("user_roles")
     .select("user_id, role, created_at");
@@ -72,14 +83,16 @@ export async function getAllUsers(): Promise<AdminUser[]> {
     roleMap[r.user_id] = r.role as "admin" | "user";
   }
 
-  return (authUsers as any[]).map((u) => ({
-    user_id: u.user_id,
-    email: u.email ?? "",
-    name: u.name ?? u.email ?? "Unknown",
-    avatar_url: u.avatar_url ?? "",
-    role: roleMap[u.user_id] ?? "user",
-    created_at: u.created_at,
+  const users = rows.map((u: Record<string, unknown>) => ({
+    user_id: String(u.user_id),
+    email: String(u.email ?? ""),
+    name: String(u.name ?? u.email ?? "Unknown"),
+    avatar_url: String(u.avatar_url ?? ""),
+    role: roleMap[String(u.user_id)] ?? "user",
+    created_at: String(u.created_at ?? ""),
   }));
+
+  return { users };
 }
 
 // ─── Update Role ──────────────────────────────────────────────────────────────
