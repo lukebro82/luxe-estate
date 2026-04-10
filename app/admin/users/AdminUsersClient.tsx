@@ -17,7 +17,7 @@ export default function AdminUsersClient({
 }: AdminUsersClientProps) {
   const [users, setUsers] = useState(initialUsers);
   const [search, setSearch] = useState("");
-  const [roleFilter, setRoleFilter] = useState<"all" | "admin" | "user">("all");
+  const [roleFilter, setRoleFilter] = useState<"all" | "admin" | "user" | "agent">("all");
   const [isPending, startTransition] = useTransition();
 
   const t = dict.admin;
@@ -30,12 +30,13 @@ export default function AdminUsersClient({
     const matchesRole =
       roleFilter === "all" ||
       (roleFilter === "admin" && u.role === "admin") ||
-      (roleFilter === "user" && u.role === "user");
+      (roleFilter === "user" && u.role === "user") ||
+      (roleFilter === "agent" && u.role === "agent");
 
     return matchesSearch && matchesRole;
   });
 
-  const handleRoleChange = (userId: string, newRole: "admin" | "user") => {
+  const handleRoleChange = (userId: string, newRole: "admin" | "user" | "agent") => {
     startTransition(async () => {
       const result = await updateUserRole(userId, newRole);
       if (!result.error) {
@@ -49,7 +50,8 @@ export default function AdminUsersClient({
   const tabs = [
     { id: "all", label: t.users.allUsers, icon: "people" },
     { id: "admin", label: t.users.administrators, icon: "shield" },
-    { id: "user", label: t.users.agents, icon: "support_agent" },
+    { id: "user", label: t.users.users, icon: "person" },
+    { id: "agent", label: t.users.agents, icon: "support_agent" },
   ];
 
   return (
@@ -96,13 +98,14 @@ export default function AdminUsersClient({
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setRoleFilter(tab.id as "all" | "admin" | "user")}
-            className={`pb-3 text-sm font-semibold transition-colors whitespace-nowrap ${
+            onClick={() => setRoleFilter(tab.id as "all" | "admin" | "user" | "agent")}
+            className={`pb-3 text-sm font-semibold transition-colors whitespace-nowrap flex items-center gap-2 ${
               roleFilter === tab.id
                 ? "text-primary border-b-2 border-primary"
                 : "text-nordic-muted hover:text-nordic-dark"
             }`}
           >
+            <span className="material-icons text-lg">{tab.icon}</span>
             {tab.label}
           </button>
         ))}

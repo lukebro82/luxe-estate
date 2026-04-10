@@ -104,6 +104,11 @@
     "termsOfService": "Conditions d'utilisation",
     "helpCenter": "Centre d'aide"
   },
+  "roles": {
+    "admin": "Administrateur",
+    "user": "Utilisateur",
+    "agent": "Agent"
+  },
   "admin": {
     "dashboard": {
       "title": "Tableau de Bord",
@@ -134,6 +139,7 @@
       "addUser": "Ajouter un Utilisateur",
       "allUsers": "Tous les Utilisateurs",
       "administrators": "Administrateurs",
+      "users": "Utilisateurs",
       "agents": "Agents",
       "noUsers": "Aucun utilisateur correspondant à vos critères.",
       "errorLoading": "Erreur lors du chargement des utilisateurs"

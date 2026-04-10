@@ -10,7 +10,7 @@ export type AdminUser = {
   email: string;
   name: string;
   avatar_url: string;
-  role: "admin" | "user";
+  role: "admin" | "user" | "agent";
   created_at: string;
 };
 
@@ -18,6 +18,7 @@ export type AdminStats = {
   totalProperties: number;
   totalUsers: number;
   totalAdmins: number;
+  totalAgents: number;
   featuredProperties: number;
 };
 
@@ -41,12 +42,14 @@ export async function getAdminStats(): Promise<AdminStats> {
 
   const totalUsers = roles?.length ?? 0;
   const totalAdmins = roles?.filter((r) => r.role === "admin").length ?? 0;
+  const totalAgents = roles?.filter((r) => r.role === "agent").length ?? 0;
 
   return {
     totalProperties: totalProperties ?? 0,
     featuredProperties: featuredProperties ?? 0,
     totalUsers,
     totalAdmins,
+    totalAgents,
   };
 }
 
@@ -78,9 +81,9 @@ export async function getAllUsers(): Promise<GetAllUsersResult> {
     .from("user_roles")
     .select("user_id, role, created_at");
 
-  const roleMap: Record<string, "admin" | "user"> = {};
+  const roleMap: Record<string, "admin" | "user" | "agent"> = {};
   for (const r of roles ?? []) {
-    roleMap[r.user_id] = r.role as "admin" | "user";
+    roleMap[r.user_id] = r.role as "admin" | "user" | "agent";
   }
 
   const users = rows.map((u: Record<string, unknown>) => ({
@@ -99,7 +102,7 @@ export async function getAllUsers(): Promise<GetAllUsersResult> {
 
 export async function updateUserRole(
   userId: string,
-  newRole: "admin" | "user"
+  newRole: "admin" | "user" | "agent"
 ): Promise<{ error?: string }> {
   const supabase = await createClient();
 
@@ -113,6 +116,11 @@ export async function updateUserRole(
     .select("role")
     .eq("user_id", user.id)
     .single();
+
+  // Validate role value
+    if (!["admin", "user", "agent"].includes(newRole)) {
+      return { error: "Invalid role" };
+  }
 
   if (callerRole?.role !== "admin") return { error: "Not authorized" };
 

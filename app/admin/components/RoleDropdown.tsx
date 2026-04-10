@@ -1,24 +1,29 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { getRoleLabel } from "@/app/utils/roleUtils";
 
 interface RoleDropdownProps {
-  currentRole: "admin" | "user";
-  onSelectRole: (role: "admin" | "user") => void;
+  currentRole: "admin" | "user" | "agent";
+  onSelectRole: (role: "admin" | "user" | "agent") => void;
   onClose: () => void;
+  dict?: any;
 }
 
-const roles = [
-  { value: "admin", label: "Administrator", icon: "shield" },
-  { value: "user", label: "Agent", icon: "support_agent" },
-];
+const roleIconMap: Record<"admin" | "user" | "agent", string> = {
+  admin: "shield",
+  user: "person",
+  agent: "support_agent",
+};
 
 export default function RoleDropdown({
   currentRole,
   onSelectRole,
   onClose,
+  dict,
 }: RoleDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const roles: Array<"admin" | "user" | "agent"> = ["admin", "user", "agent"];
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -42,17 +47,19 @@ export default function RoleDropdown({
       <div className="py-1" role="menu">
         {roles.map((role) => (
           <button
-            key={role.value}
-            onClick={() => onSelectRole(role.value as "admin" | "user")}
+            key={role}
+            onClick={() => onSelectRole(role)}
             className={`group flex items-center w-full px-4 py-3 text-xs transition-colors ${
-              currentRole === role.value
+              currentRole === role
                 ? "bg-white/20 text-white font-medium"
                 : "text-white/70 hover:bg-white/10 hover:text-white"
             }`}
             role="menuitem"
           >
-            <span className="material-icons text-sm mr-3">{role.icon}</span>
-            {role.label}
+            <span className="material-icons text-sm mr-3">
+              {roleIconMap[role]}
+            </span>
+            {getRoleLabel(role, dict)}
           </button>
         ))}
       </div>

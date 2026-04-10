@@ -19,11 +19,18 @@ export default function AdminPropertiesClient({
   const [search, setSearch] = useState("");
   const [isPending, startTransition] = useTransition();
   const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const filteredProperties = list.filter(
     (p) =>
       p.title.toLowerCase().includes(search.toLowerCase()) ||
       p.location.toLowerCase().includes(search.toLowerCase()),
+  );
+
+  const totalPages = Math.ceil(filteredProperties.length / itemsPerPage);
+  const paginatedProperties = filteredProperties.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
   );
 
   const handleToggleFeatured = (id: string, current: boolean) => {
@@ -95,7 +102,10 @@ export default function AdminPropertiesClient({
             type="text"
             placeholder={t.properties.searchPlaceholder}
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setCurrentPage(1);
+            }}
             className="block w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg bg-white text-nordic-dark shadow-sm placeholder-nordic-muted/50 focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
           />
         </div>
@@ -113,7 +123,7 @@ export default function AdminPropertiesClient({
 
         {/* Properties Grid */}
         <div className="space-y-0 divide-y divide-gray-100">
-          {filteredProperties.length === 0 ? (
+          {paginatedProperties.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center px-6">
               <span className="material-icons text-5xl text-nordic-muted/20 mb-3">
                 home_outline
@@ -121,7 +131,7 @@ export default function AdminPropertiesClient({
               <p className="text-nordic-muted">{t.properties.noProperties}</p>
             </div>
           ) : (
-            filteredProperties.map((property) => (
+            paginatedProperties.map((property) => (
               <PropertyCard
                 key={property.id}
                 property={property}
@@ -139,10 +149,12 @@ export default function AdminPropertiesClient({
           <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between bg-gray-50/50">
             <div className="text-sm text-nordic-muted">
               {t.properties.showing}{" "}
-              <span className="font-medium text-nordic-dark">1</span>{" "}
+              <span className="font-medium text-nordic-dark">
+                {(currentPage - 1) * itemsPerPage + 1}
+              </span>{" "}
               {t.properties.to}{" "}
               <span className="font-medium text-nordic-dark">
-                {Math.min(filteredProperties.length, 5)}
+                {Math.min(currentPage * itemsPerPage, filteredProperties.length)}
               </span>{" "}
               {t.properties.of}{" "}
               <span className="font-medium text-nordic-dark">
@@ -156,13 +168,14 @@ export default function AdminPropertiesClient({
                 disabled={currentPage === 1}
                 className="px-3 py-1 text-sm border border-gray-200 rounded-md text-nordic-muted hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                {t.properties.previous}
+                {t.properties.previous || "Anterior"}
               </button>
               <button
-                onClick={() => setCurrentPage((p) => p + 1)}
-                className="px-3 py-1 text-sm border border-gray-200 rounded-md text-nordic-muted hover:bg-white transition-colors"
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 text-sm border border-gray-200 rounded-md text-nordic-muted hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                {t.properties.next}
+                {t.properties.next || "Siguiente"}
               </button>
             </div>
           </div>

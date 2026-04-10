@@ -104,6 +104,11 @@
     "termsOfService": "Términos de Servicio",
     "helpCenter": "Centro de Ayuda"
   },
+  "roles": {
+    "admin": "Administrador",
+    "user": "Usuario",
+    "agent": "Agente"
+  },
   "admin": {
     "dashboard": {
       "title": "Dashboard",
@@ -134,6 +139,7 @@
       "addUser": "Agregar Usuario",
       "allUsers": "Todos los Usuarios",
       "administrators": "Administradores",
+      "users": "Usuarios",
       "agents": "Agentes",
       "noUsers": "No se encontraron usuarios que coincidan con tus criterios.",
       "errorLoading": "Error al cargar usuarios"

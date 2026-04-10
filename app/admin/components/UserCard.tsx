@@ -2,14 +2,33 @@
 
 import { useState } from "react";
 import type { AdminUser } from "@/app/actions/admin";
+import { getRoleLabel } from "@/app/utils/roleUtils";
 import RoleDropdown from "./RoleDropdown";
 
 interface UserCardProps {
   user: AdminUser & { properties_count?: number; sales_ytd?: string };
   isHighlighted?: boolean;
-  onRoleChange?: (userId: string, newRole: "admin" | "user") => void;
+  onRoleChange?: (userId: string, newRole: "admin" | "user" | "agent") => void;
   dict?: any;
 }
+
+const roleColorMap: Record<"admin" | "user" | "agent", Record<string, string>> = {
+  admin: {
+    bg: "bg-nordic-dark",
+    text: "text-white",
+    icon: "shield",
+  },
+  user: {
+    bg: "bg-blue-100",
+    text: "text-blue-600",
+    icon: "person",
+  },
+  agent: {
+    bg: "bg-green-100",
+    text: "text-green-600",
+    icon: "support_agent",
+  },
+};
 
 export default function UserCard({
   user,
@@ -20,19 +39,10 @@ export default function UserCard({
   const [showDropdown, setShowDropdown] = useState(false);
 
   const getRoleBadge = () => {
-    if (user.role === "admin") {
-      return {
-        bg: "bg-nordic-dark",
-        text: "text-white",
-        label: "Administrator",
-        icon: "shield",
-      };
-    }
+    const roleStyles = roleColorMap[user.role] || roleColorMap.user;
     return {
-      bg: "bg-gray-100",
-      text: "text-gray-600",
-      label: "Agent",
-      icon: "support_agent",
+      ...roleStyles,
+      label: getRoleLabel(user.role, dict),
     };
   };
 
@@ -147,6 +157,7 @@ export default function UserCard({
                 setShowDropdown(false);
               }}
               onClose={() => setShowDropdown(false)}
+              dict={dict}
             />
           )}
         </div>

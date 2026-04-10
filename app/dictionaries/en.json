@@ -104,6 +104,11 @@
     "termsOfService": "Terms of Service",
     "helpCenter": "Help Center"
   },
+  "roles": {
+    "admin": "Administrator",
+    "user": "User",
+    "agent": "Agent"
+  },
   "admin": {
     "dashboard": {
       "title": "Dashboard",
@@ -134,6 +139,7 @@
       "addUser": "Add User",
       "allUsers": "All Users",
       "administrators": "Administrators",
+      "users": "Users",
       "agents": "Agents",
       "noUsers": "No users found matching your criteria.",
       "errorLoading": "Error loading users"
