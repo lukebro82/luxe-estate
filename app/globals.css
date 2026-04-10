@@ -1,25 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #06f9d0;
-  --color-background-light: #EEF6F6;
-  --color-background-dark: #0f231f;
-  --color-nordic-dark: #19322F;
-  --color-nordic-muted: #5C706D;
+  --color-primary: #006655;
+  --color-background-light: #eef6f6;
+  --color-background-dark: #0f2320;
+  --color-nordic-dark: #19322f;
+  --color-nordic-muted: #5c706d;
   --color-mosque: #006655;
-  --color-hint-green: #D9ECC8;
+  --color-hint-green: #d9ecc8;
 
   --font-display: var(--font-inter), sans-serif;
 
-  --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.05);
-  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+  --shadow-card:
+    0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
 }
 
 @layer base {
   body {
     @apply bg-background-light  text-nordic-dark  font-display antialiased;
   }
-  
+
   ::selection {
     @apply bg-mosque text-white;
   }

@@ -3,14 +3,25 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navItems = [
-  { href: "/admin", label: "Dashboard", icon: "dashboard" },
-  { href: "/admin/properties", label: "Propiedades", icon: "apartment" },
-  { href: "/admin/users", label: "Usuarios", icon: "group" },
-];
+interface AdminSidebarProps {
+  dict: any;
+}
 
-export default function AdminSidebar() {
+interface NavItem {
+  href: string;
+  labelKey: string;
+  icon: string;
+}
+
+export default function AdminSidebar({ dict }: AdminSidebarProps) {
   const pathname = usePathname();
+  const t = dict.admin.sidebar;
+
+  const navItems: NavItem[] = [
+    { href: "/admin", labelKey: "dashboard", icon: "dashboard" },
+    { href: "/admin/properties", labelKey: "properties", icon: "apartment" },
+    { href: "/admin/users", labelKey: "users", icon: "group" },
+  ];
 
   return (
     <aside className="fixed left-0 top-0 h-full w-64 bg-[#19322F] flex flex-col z-40 shadow-2xl">
@@ -21,8 +32,10 @@ export default function AdminSidebar() {
             <span className="material-icons text-white text-xl">apartment</span>
           </div>
           <div>
-            <p className="text-white font-semibold text-base leading-tight">LuxeEstate</p>
-            <p className="text-white/40 text-xs">Panel Admin</p>
+            <p className="text-white font-semibold text-base leading-tight">
+              LuxeEstate
+            </p>
+            <p className="text-white/40 text-xs">{t.panelAdmin}</p>
           </div>
         </Link>
       </div>
@@ -30,7 +43,7 @@ export default function AdminSidebar() {
       {/* Navigation */}
       <nav className="flex-1 px-4 py-6 space-y-1">
         <p className="text-white/30 text-xs font-semibold uppercase tracking-widest px-3 mb-4">
-          Menú
+          {t.menu}
         </p>
         {navItems.map((item) => {
           const isActive =
@@ -55,7 +68,7 @@ export default function AdminSidebar() {
               >
                 {item.icon}
               </span>
-              {item.label}
+              {t[item.labelKey as keyof typeof t]}
               {isActive && (
                 <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#06f9d0]" />
               )}
@@ -73,7 +86,7 @@ export default function AdminSidebar() {
           <span className="material-icons text-xl group-hover:-translate-x-0.5 transition-transform">
             arrow_back
           </span>
-          Volver al sitio
+          {t.backToSite}
         </Link>
       </div>
     </aside>

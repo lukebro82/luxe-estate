@@ -103,5 +103,73 @@
     "privacyPolicy": "Política de Privacidad",
     "termsOfService": "Términos de Servicio",
     "helpCenter": "Centro de Ayuda"
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Resumen general de LuxeEstate",
+      "menu": "Menú",
+      "backToSite": "Volver al sitio",
+      "panelAdmin": "Panel Admin",
+      "totalProperties": "Propiedades totales",
+      "inTheSystem": "En el sistema",
+      "featuredProperties": "Propiedades destacadas",
+      "visibleOnHomepage": "Visibles en portada",
+      "registeredUsers": "Usuarios registrados",
+      "activeAccounts": "Cuentas activas",
+      "administrators": "Administradores",
+      "fullAccess": "Con acceso total"
+    },
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "properties": "Propiedades",
+      "users": "Usuarios",
+      "menu": "Menú",
+      "backToSite": "Volver al sitio"
+    },
+    "users": {
+      "title": "Directorio de Usuarios",
+      "subtitle": "Gestiona acceso de usuarios y roles para tus propiedades.",
+      "searchPlaceholder": "Buscar por nombre, email...",
+      "addUser": "Agregar Usuario",
+      "allUsers": "Todos los Usuarios",
+      "administrators": "Administradores",
+      "agents": "Agentes",
+      "noUsers": "No se encontraron usuarios que coincidan con tus criterios.",
+      "errorLoading": "Error al cargar usuarios"
+    },
+    "properties": {
+      "title": "Mis Propiedades",
+      "subtitle": "Gestiona tu cartera y monitorea el desempeño.",
+      "filter": "Filtro",
+      "addNew": "Agregar Nueva Propiedad",
+      "totalListings": "Total de Listados",
+      "activeProperties": "Propiedades Activas",
+      "rentalProperties": "Propiedades en Alquiler",
+      "searchPlaceholder": "Buscar propiedades...",
+      "propertyDetails": "Detalles de Propiedad",
+      "price": "Precio",
+      "status": "Estado",
+      "actions": "Acciones",
+      "noProperties": "No se encontraron propiedades que coincidan con tu búsqueda.",
+      "showing": "Mostrando",
+      "to": "a",
+      "of": "de",
+      "results": "resultados",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "edit": "Editar",
+      "delete": "Eliminar"
+    },
+    "common": {
+      "properties": "Propiedades",
+      "salesYTD": "Ventas (AÑO)",
+      "active": "Activo",
+      "changeRole": "Cambiar Rol",
+      "beds": "Dormitorios",
+      "baths": "Baños",
+      "sqft": "pies²",
+      "monthly": "Mensual"
+    }
   }
 }

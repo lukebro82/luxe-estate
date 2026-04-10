@@ -103,5 +103,73 @@
     "privacyPolicy": "Politique de confidentialité",
     "termsOfService": "Conditions d'utilisation",
     "helpCenter": "Centre d'aide"
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Tableau de Bord",
+      "subtitle": "Aperçu général de LuxeEstate",
+      "menu": "Menu",
+      "backToSite": "Retour au site",
+      "panelAdmin": "Panneau d'admin",
+      "totalProperties": "Propriétés Totales",
+      "inTheSystem": "Dans le système",
+      "featuredProperties": "Propriétés en Vedette",
+      "visibleOnHomepage": "Visibles sur la page d'accueil",
+      "registeredUsers": "Utilisateurs Enregistrés",
+      "activeAccounts": "Comptes actifs",
+      "administrators": "Administrateurs",
+      "fullAccess": "Accès complet"
+    },
+    "sidebar": {
+      "dashboard": "Tableau de Bord",
+      "properties": "Propriétés",
+      "users": "Utilisateurs",
+      "menu": "Menu",
+      "backToSite": "Retour au site"
+    },
+    "users": {
+      "title": "Annuaire des Utilisateurs",
+      "subtitle": "Gérez l'accès des utilisateurs et les rôles de vos propriétés.",
+      "searchPlaceholder": "Rechercher par nom, email...",
+      "addUser": "Ajouter un Utilisateur",
+      "allUsers": "Tous les Utilisateurs",
+      "administrators": "Administrateurs",
+      "agents": "Agents",
+      "noUsers": "Aucun utilisateur correspondant à vos critères.",
+      "errorLoading": "Erreur lors du chargement des utilisateurs"
+    },
+    "properties": {
+      "title": "Mes Propriétés",
+      "subtitle": "Gérez votre portefeuille et suivez les performances.",
+      "filter": "Filtre",
+      "addNew": "Ajouter une Nouvelle Propriété",
+      "totalListings": "Total des Annonces",
+      "activeProperties": "Propriétés Actives",
+      "rentalProperties": "Propriétés Locatives",
+      "searchPlaceholder": "Rechercher des propriétés...",
+      "propertyDetails": "Détails de la Propriété",
+      "price": "Prix",
+      "status": "Statut",
+      "actions": "Actions",
+      "noProperties": "Aucune propriété ne correspond à votre recherche.",
+      "showing": "Affichage",
+      "to": "à",
+      "of": "de",
+      "results": "résultats",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "common": {
+      "properties": "Propriétés",
+      "salesYTD": "Ventes (YTD)",
+      "active": "Actif",
+      "changeRole": "Changer le Rôle",
+      "beds": "Chambres",
+      "baths": "Salles de bain",
+      "sqft": "pieds²",
+      "monthly": "Mensuel"
+    }
   }
 }

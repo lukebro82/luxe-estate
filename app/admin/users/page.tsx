@@ -1,21 +1,14 @@
-import UsersTable from "../components/UsersTable";
 import { getAllUsers } from "@/app/actions/admin";
+import AdminUsersClient from "./AdminUsersClient";
+import { getDictionary } from "@/app/utils/i18n";
 
 export default async function AdminUsersPage() {
   const { users, error } = await getAllUsers();
+  const dict = await getDictionary();
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-[#19322F] tracking-tight">
-          Usuarios
-        </h1>
-        <p className="text-[#5C706D] mt-1">
-          Gestiona los roles de los usuarios registrados
-        </p>
-      </div>
-
-      <UsersTable users={users} loadError={error} />
+      <AdminUsersClient initialUsers={users} loadError={error} dict={dict} />
     </div>
   );
 }

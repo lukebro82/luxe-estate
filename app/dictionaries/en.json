@@ -103,5 +103,73 @@
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
     "helpCenter": "Help Center"
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "General overview of LuxeEstate",
+      "menu": "Menu",
+      "backToSite": "Back to site",
+      "panelAdmin": "Admin Panel",
+      "totalProperties": "Total Properties",
+      "inTheSystem": "In the system",
+      "featuredProperties": "Featured Properties",
+      "visibleOnHomepage": "Visible on homepage",
+      "registeredUsers": "Registered Users",
+      "activeAccounts": "Active accounts",
+      "administrators": "Administrators",
+      "fullAccess": "Full access"
+    },
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "properties": "Properties",
+      "users": "Users",
+      "menu": "Menu",
+      "backToSite": "Back to site"
+    },
+    "users": {
+      "title": "User Directory",
+      "subtitle": "Manage user access and roles for your properties.",
+      "searchPlaceholder": "Search by name, email...",
+      "addUser": "Add User",
+      "allUsers": "All Users",
+      "administrators": "Administrators",
+      "agents": "Agents",
+      "noUsers": "No users found matching your criteria.",
+      "errorLoading": "Error loading users"
+    },
+    "properties": {
+      "title": "My Properties",
+      "subtitle": "Manage your portfolio and track performance.",
+      "filter": "Filter",
+      "addNew": "Add New Property",
+      "totalListings": "Total Listings",
+      "activeProperties": "Active Properties",
+      "rentalProperties": "Rental Properties",
+      "searchPlaceholder": "Search properties...",
+      "propertyDetails": "Property Details",
+      "price": "Price",
+      "status": "Status",
+      "actions": "Actions",
+      "noProperties": "No properties found matching your search.",
+      "showing": "Showing",
+      "to": "to",
+      "of": "of",
+      "results": "results",
+      "previous": "Previous",
+      "next": "Next",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "common": {
+      "properties": "Properties",
+      "salesYTD": "Sales (YTD)",
+      "active": "Active",
+      "changeRole": "Change Role",
+      "beds": "Beds",
+      "baths": "Baths",
+      "sqft": "sqft",
+      "monthly": "Monthly"
+    }
   }
 }

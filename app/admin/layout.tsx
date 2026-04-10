@@ -1,6 +1,7 @@
 import AdminSidebar from "./components/AdminSidebar";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { getDictionary } from "@/app/utils/i18n";
 
 export const metadata = {
   title: "Admin Panel | LuxeEstate",
@@ -12,6 +13,7 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const supabase = await createClient();
+  const dict = await getDictionary();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -33,7 +35,7 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-[#EEF6F6] flex">
-      <AdminSidebar />
+      <AdminSidebar dict={dict} />
 
       {/* Main content */}
       <div className="ml-64 flex-1 flex flex-col min-h-screen">
@@ -49,7 +51,9 @@ export default async function AdminLayout({
               <p className="text-sm font-semibold text-[#19322F] leading-tight">
                 {name}
               </p>
-              <p className="text-xs text-[#006655] font-medium">Administrador</p>
+              <p className="text-xs text-[#006655] font-medium">
+                Administrador
+              </p>
             </div>
             <img
               src={avatarUrl}
