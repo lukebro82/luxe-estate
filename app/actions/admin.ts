@@ -64,7 +64,7 @@ export async function getAllUsers(): Promise<GetAllUsersResult> {
   const supabase = await createClient();
 
   const { data: authUsers, error: rpcError } = await supabase.rpc(
-    "get_users_for_admin"
+    "get_users_for_admin",
   );
 
   if (rpcError) {
@@ -102,7 +102,7 @@ export async function getAllUsers(): Promise<GetAllUsersResult> {
 
 export async function updateUserRole(
   userId: string,
-  newRole: "admin" | "user" | "agent"
+  newRole: "admin" | "user" | "agent",
 ): Promise<{ error?: string }> {
   const supabase = await createClient();
 
@@ -118,8 +118,8 @@ export async function updateUserRole(
     .single();
 
   // Validate role value
-    if (!["admin", "user", "agent"].includes(newRole)) {
-      return { error: "Invalid role" };
+  if (!["admin", "user", "agent"].includes(newRole)) {
+    return { error: "Invalid role" };
   }
 
   if (callerRole?.role !== "admin") return { error: "Not authorized" };
@@ -151,7 +151,7 @@ export async function getAllAdminProperties() {
 
 export async function togglePropertyFeatured(
   propertyId: string,
-  featured: boolean
+  featured: boolean,
 ): Promise<{ error?: string }> {
   const supabase = await createClient();
 

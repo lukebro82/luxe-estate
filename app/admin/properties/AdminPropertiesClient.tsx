@@ -30,7 +30,7 @@ export default function AdminPropertiesClient({
   const totalPages = Math.ceil(filteredProperties.length / itemsPerPage);
   const paginatedProperties = filteredProperties.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   const handleToggleFeatured = (id: string, current: boolean) => {
@@ -154,7 +154,10 @@ export default function AdminPropertiesClient({
               </span>{" "}
               {t.properties.to}{" "}
               <span className="font-medium text-nordic-dark">
-                {Math.min(currentPage * itemsPerPage, filteredProperties.length)}
+                {Math.min(
+                  currentPage * itemsPerPage,
+                  filteredProperties.length,
+                )}
               </span>{" "}
               {t.properties.of}{" "}
               <span className="font-medium text-nordic-dark">
@@ -171,7 +174,9 @@ export default function AdminPropertiesClient({
                 {t.properties.previous || "Anterior"}
               </button>
               <button
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
                 disabled={currentPage === totalPages}
                 className="px-3 py-1 text-sm border border-gray-200 rounded-md text-nordic-muted hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >

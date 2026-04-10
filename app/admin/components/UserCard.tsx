@@ -12,7 +12,10 @@ interface UserCardProps {
   dict?: any;
 }
 
-const roleColorMap: Record<"admin" | "user" | "agent", Record<string, string>> = {
+const roleColorMap: Record<
+  "admin" | "user" | "agent",
+  Record<string, string>
+> = {
   admin: {
     bg: "bg-nordic-dark",
     text: "text-white",

@@ -17,7 +17,9 @@ export default function AdminUsersClient({
 }: AdminUsersClientProps) {
   const [users, setUsers] = useState(initialUsers);
   const [search, setSearch] = useState("");
-  const [roleFilter, setRoleFilter] = useState<"all" | "admin" | "user" | "agent">("all");
+  const [roleFilter, setRoleFilter] = useState<
+    "all" | "admin" | "user" | "agent"
+  >("all");
   const [isPending, startTransition] = useTransition();
 
   const t = dict.admin;
@@ -36,7 +38,10 @@ export default function AdminUsersClient({
     return matchesSearch && matchesRole;
   });
 
-  const handleRoleChange = (userId: string, newRole: "admin" | "user" | "agent") => {
+  const handleRoleChange = (
+    userId: string,
+    newRole: "admin" | "user" | "agent",
+  ) => {
     startTransition(async () => {
       const result = await updateUserRole(userId, newRole);
       if (!result.error) {
@@ -98,7 +103,9 @@ export default function AdminUsersClient({
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setRoleFilter(tab.id as "all" | "admin" | "user" | "agent")}
+            onClick={() =>
+              setRoleFilter(tab.id as "all" | "admin" | "user" | "agent")
+            }
             className={`pb-3 text-sm font-semibold transition-colors whitespace-nowrap flex items-center gap-2 ${
               roleFilter === tab.id
                 ? "text-primary border-b-2 border-primary"
