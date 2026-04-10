@@ -3,6 +3,8 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { getDictionary } from "@/app/utils/i18n";
 
+import AdminUserMenu from "./components/AdminUserMenu";
+
 export const metadata = {
   title: "Admin Panel | LuxeEstate",
 };
@@ -47,19 +49,7 @@ export default async function AdminLayout({
             <span className="text-sm font-medium text-[#19322F]">Admin</span>
           </div>
           <div className="flex items-center gap-3">
-            <div className="text-right">
-              <p className="text-sm font-semibold text-[#19322F] leading-tight">
-                {name}
-              </p>
-              <p className="text-xs text-[#006655] font-medium">
-                Administrador
-              </p>
-            </div>
-            <img
-              src={avatarUrl}
-              alt={name}
-              className="w-9 h-9 rounded-full ring-2 ring-[#006655]/30 object-cover"
-            />
+            <AdminUserMenu name={name} avatarUrl={avatarUrl} />
           </div>
         </header>
 
