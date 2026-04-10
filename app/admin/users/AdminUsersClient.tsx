@@ -91,8 +91,8 @@ export default function AdminUsersClient({
               className="block w-full pl-10 pr-3 py-2.5 rounded-lg bg-white text-nordic-dark shadow-sm border border-gray-200 placeholder-nordic-muted/50 focus:ring-2 focus:ring-primary focus:bg-white transition-all text-sm"
             />
           </div>
-          <button className="inline-flex items-center justify-center px-4 py-2.5 border border-primary text-sm font-medium rounded-lg text-primary bg-transparent hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors whitespace-nowrap">
-            <span className="material-icons text-lg mr-2">add</span>
+          <button className="bg-[#006655] hover:bg-[#005544] text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-2 whitespace-nowrap">
+            <span className="material-icons text-base">add</span>
             {t.users.addUser}
           </button>
         </div>

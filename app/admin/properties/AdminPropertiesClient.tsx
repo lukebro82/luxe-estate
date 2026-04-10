@@ -50,20 +50,23 @@ export default function AdminPropertiesClient({
     {
       label: t.properties.totalListings,
       value: list.length,
-      icon: "apartment",
-      bgColor: "bg-primary/10",
+      icon: "domain",
+      bgColor: "bg-[#e5f0ee]",
+      iconColor: "text-[#004135]",
     },
     {
       label: t.properties.activeProperties,
       value: list.filter((p) => p.type === "sale").length,
       icon: "check_circle",
-      bgColor: "bg-hint-green",
+      bgColor: "bg-[#d9ecc8]",
+      iconColor: "text-[#006655]",
     },
     {
       label: t.properties.rentalProperties,
       value: list.filter((p) => p.type === "rent").length,
       icon: "pending",
-      bgColor: "bg-orange-100",
+      bgColor: "bg-[#ffe5cc]",
+      iconColor: "text-[#ed6c02]",
     },
   ];
 
@@ -82,7 +85,7 @@ export default function AdminPropertiesClient({
             <span className="material-icons text-base">filter_list</span>{" "}
             {t.properties.filter}
           </button>
-          <button className="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow-md shadow-primary/20 transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+          <button className="bg-[#006655] hover:bg-[#005544] text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-2">
             <span className="material-icons text-base">add</span>{" "}
             {t.properties.addNew}
           </button>

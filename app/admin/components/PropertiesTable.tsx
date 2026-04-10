@@ -19,7 +19,11 @@ type Property = {
   created_at: string;
 };
 
-export default function PropertiesTable({ properties }: { properties: Property[] }) {
+export default function PropertiesTable({
+  properties,
+}: {
+  properties: Property[];
+}) {
   const [list, setList] = useState(properties);
   const [isPending, startTransition] = useTransition();
   const [search, setSearch] = useState("");
@@ -27,14 +31,14 @@ export default function PropertiesTable({ properties }: { properties: Property[]
   const filtered = list.filter(
     (p) =>
       p.title.toLowerCase().includes(search.toLowerCase()) ||
-      p.location.toLowerCase().includes(search.toLowerCase())
+      p.location.toLowerCase().includes(search.toLowerCase()),
   );
 
   const handleToggleFeatured = (id: string, current: boolean) => {
     startTransition(async () => {
       await togglePropertyFeatured(id, !current);
       setList((prev) =>
-        prev.map((p) => (p.id === id ? { ...p, featured: !current } : p))
+        prev.map((p) => (p.id === id ? { ...p, featured: !current } : p)),
       );
     });
   };
@@ -82,7 +86,7 @@ export default function PropertiesTable({ properties }: { properties: Property[]
                 {/* Property */}
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
+                    <div className="w-12 h-10 rounded-lg overflow-hidden shrink-0 bg-gray-100">
                       {p.images?.[0] ? (
                         <img
                           src={p.images[0]}
@@ -91,7 +95,9 @@ export default function PropertiesTable({ properties }: { properties: Property[]
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <span className="material-icons text-gray-300 text-xl">image</span>
+                          <span className="material-icons text-gray-300 text-xl">
+                            image
+                          </span>
                         </div>
                       )}
                     </div>
@@ -99,7 +105,9 @@ export default function PropertiesTable({ properties }: { properties: Property[]
                       <p className="font-semibold text-[#19322F] leading-tight line-clamp-1">
                         {p.title}
                       </p>
-                      <p className="text-xs text-[#5C706D] mt-0.5">{p.category}</p>
+                      <p className="text-xs text-[#5C706D] mt-0.5">
+                        {p.category}
+                      </p>
                     </div>
                   </div>
                 </td>
@@ -157,7 +165,9 @@ export default function PropertiesTable({ properties }: { properties: Property[]
                     className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus:outline-none disabled:opacity-50 ${
                       p.featured ? "bg-[#006655]" : "bg-gray-200"
                     }`}
-                    title={p.featured ? "Quitar destacado" : "Marcar como destacado"}
+                    title={
+                      p.featured ? "Quitar destacado" : "Marcar como destacado"
+                    }
                   >
                     <span
                       className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-md transition-transform duration-300 ${
@@ -171,7 +181,10 @@ export default function PropertiesTable({ properties }: { properties: Property[]
 
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-6 py-12 text-center text-[#5C706D]">
+                <td
+                  colSpan={6}
+                  className="px-6 py-12 text-center text-[#5C706D]"
+                >
                   <span className="material-icons text-4xl text-gray-200 block mb-2">
                     search_off
                   </span>
