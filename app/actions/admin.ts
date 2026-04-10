@@ -124,10 +124,10 @@ export async function updateUserRole(
 
   if (callerRole?.role !== "admin") return { error: "Not authorized" };
 
-  const { error } = await supabase
-    .from("user_roles")
-    .update({ role: newRole })
-    .eq("user_id", userId);
+  const { error } = await supabase.rpc("update_user_role_admin", {
+    target_user_id: userId,
+    target_role: newRole,
+  });
 
   if (error) return { error: error.message };
 

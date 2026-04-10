@@ -44,7 +44,10 @@ export default function AdminUsersClient({
   ) => {
     startTransition(async () => {
       const result = await updateUserRole(userId, newRole);
-      if (!result.error) {
+      if (result.error) {
+        alert("Error cambiando rol: " + result.error);
+        console.error("Role update failed:", result.error);
+      } else {
         setUsers((prev) =>
           prev.map((u) => (u.user_id === userId ? { ...u, role: newRole } : u)),
         );

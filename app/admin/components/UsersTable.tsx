@@ -17,15 +17,21 @@ export default function UsersTable({
   const filtered = list.filter(
     (u) =>
       u.name.toLowerCase().includes(search.toLowerCase()) ||
-      u.email.toLowerCase().includes(search.toLowerCase())
+      u.email.toLowerCase().includes(search.toLowerCase()),
   );
 
-  const handleRoleChange = (userId: string, newRole: "admin" | "user") => {
+  const handleRoleChange = (
+    userId: string,
+    newRole: "admin" | "user" | "agent",
+  ) => {
     startTransition(async () => {
       const result = await updateUserRole(userId, newRole);
-      if (!result.error) {
+      if (result.error) {
+        alert("Error cambiando rol: " + result.error);
+        console.error("Role update failed:", result.error);
+      } else {
         setList((prev) =>
-          prev.map((u) => (u.user_id === userId ? { ...u, role: newRole } : u))
+          prev.map((u) => (u.user_id === userId ? { ...u, role: newRole } : u)),
         );
       }
     });
@@ -68,7 +74,9 @@ export default function UsersTable({
             className="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#006655]/30 focus:border-[#006655] bg-[#EEF6F6] text-[#19322F] placeholder-[#5C706D]"
           />
         </div>
-        <span className="text-sm text-[#5C706D]">{filtered.length} usuarios</span>
+        <span className="text-sm text-[#5C706D]">
+          {filtered.length} usuarios
+        </span>
       </div>
 
       {/* Table */}
@@ -79,8 +87,12 @@ export default function UsersTable({
               <th className="text-left px-6 py-3 font-semibold">Usuario</th>
               <th className="text-left px-4 py-3 font-semibold">Email</th>
               <th className="text-left px-4 py-3 font-semibold">Registrado</th>
-              <th className="text-center px-4 py-3 font-semibold">Rol actual</th>
-              <th className="text-center px-4 py-3 font-semibold">Cambiar rol</th>
+              <th className="text-center px-4 py-3 font-semibold">
+                Rol actual
+              </th>
+              <th className="text-center px-4 py-3 font-semibold">
+                Cambiar rol
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
@@ -127,13 +139,23 @@ export default function UsersTable({
                     className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${
                       u.role === "admin"
                         ? "bg-[#19322F] text-white"
-                        : "bg-[#EEF6F6] text-[#5C706D]"
+                        : u.role === "agent"
+                          ? "bg-[#006655] text-white"
+                          : "bg-[#EEF6F6] text-[#5C706D]"
                     }`}
                   >
                     <span className="material-icons text-sm">
-                      {u.role === "admin" ? "shield" : "person"}
+                      {u.role === "admin"
+                        ? "shield"
+                        : u.role === "agent"
+                          ? "support_agent"
+                          : "person"}
                     </span>
-                    {u.role === "admin" ? "Admin" : "Usuario"}
+                    {u.role === "admin"
+                      ? "Admin"
+                      : u.role === "agent"
+                        ? "Agente"
+                        : "Usuario"}
                   </span>
                 </td>
 
@@ -151,6 +173,20 @@ export default function UsersTable({
                     >
                       <span className="material-icons text-sm">person</span>
                       Usuario
+                    </button>
+                    <button
+                      onClick={() => handleRoleChange(u.user_id, "agent")}
+                      disabled={isPending || u.role === "agent"}
+                      className={`px-3 py-1.5 text-xs font-semibold transition-all duration-200 flex items-center gap-1 border-l border-gray-200 ${
+                        u.role === "agent"
+                          ? "bg-[#006655] text-white cursor-default"
+                          : "bg-white text-[#5C706D] hover:bg-[#EEF6F6] hover:text-[#006655]"
+                      } disabled:opacity-50`}
+                    >
+                      <span className="material-icons text-sm">
+                        support_agent
+                      </span>
+                      Agente
                     </button>
                     <button
                       onClick={() => handleRoleChange(u.user_id, "admin")}
@@ -171,7 +207,10 @@ export default function UsersTable({
 
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-6 py-12 text-center text-[#5C706D]">
+                <td
+                  colSpan={5}
+                  className="px-6 py-12 text-center text-[#5C706D]"
+                >
                   <span className="material-icons text-4xl text-gray-200 block mb-2">
                     group_off
                   </span>
