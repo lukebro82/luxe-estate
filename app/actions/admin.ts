@@ -256,6 +256,28 @@ export async function updateProperty(
 export async function deleteProperty(id: string): Promise<{ error?: string }> {
   const supabase = createAdminClient();
 
+  // Fetch images before deleting the record
+  const { data: property } = await supabase
+    .from("properties")
+    .select("images")
+    .eq("id", id)
+    .single();
+
+  // Delete images from storage
+  if (property?.images?.length) {
+    const marker = `/${STORAGE_BUCKET}/`;
+    const paths = (property.images as string[])
+      .map((url: string) => {
+        const idx = url.indexOf(marker);
+        return idx !== -1 ? url.slice(idx + marker.length) : null;
+      })
+      .filter(Boolean) as string[];
+
+    if (paths.length) {
+      await supabase.storage.from(STORAGE_BUCKET).remove(paths);
+    }
+  }
+
   const { error } = await supabase.from("properties").delete().eq("id", id);
 
   if (error) return { error: error.message };
