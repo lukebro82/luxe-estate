@@ -3,7 +3,7 @@ export interface Property {
   title: string;
   location: string;
   price: number;
-  type: "sale" | "rent";
+  type: "sale" | "rent" | "sold";
   category?: string | null;
   beds: number;
   baths: number;
@@ -13,6 +13,10 @@ export interface Property {
   created_at: string;
   slug: string;
   images: string[];
+  description?: string | null;
+  parking?: number | null;
+  year_built?: number | null;
+  amenities?: string[] | null;
 }
 
 export interface PropertyFilters {

@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
 import { revalidatePath } from "next/cache";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -153,7 +154,7 @@ export async function togglePropertyFeatured(
   propertyId: string,
   featured: boolean,
 ): Promise<{ error?: string }> {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   const { error } = await supabase
     .from("properties")
@@ -163,5 +164,103 @@ export async function togglePropertyFeatured(
   if (error) return { error: error.message };
 
   revalidatePath("/admin/properties");
+  return {};
+}
+
+// ─── Property CRUD ────────────────────────────────────────────────────────────
+
+export type PropertyFormData = {
+  title: string;
+  location: string;
+  price: number;
+  type: "sale" | "rent" | "sold";
+  category?: string | null;
+  beds: number;
+  baths: number;
+  size: number;
+  parking?: number;
+  year_built?: number | null;
+  description?: string | null;
+  amenities?: string[];
+  images: string[];
+};
+
+function toSlug(title: string): string {
+  const base = title
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return `${base}-${Date.now().toString(36)}`;
+}
+
+export async function getPropertyById(id: string): Promise<{
+  property?: import("@/app/types/property").Property;
+  error?: string;
+}> {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("properties")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) return { error: error.message };
+  return { property: data };
+}
+
+export async function createProperty(
+  formData: PropertyFormData,
+): Promise<{ id?: string; error?: string }> {
+  const supabase = createAdminClient();
+
+  const slug = toSlug(formData.title);
+
+  const { data, error } = await supabase
+    .from("properties")
+    .insert({
+      ...formData,
+      slug,
+      featured: false,
+    })
+    .select("id")
+    .single();
+
+  if (error) return { error: error.message };
+
+  revalidatePath("/admin/properties");
+  revalidatePath("/");
+  return { id: data.id };
+}
+
+export async function updateProperty(
+  id: string,
+  formData: PropertyFormData,
+): Promise<{ error?: string }> {
+  const supabase = createAdminClient();
+
+  const { error } = await supabase
+    .from("properties")
+    .update({ ...formData })
+    .eq("id", id);
+
+  if (error) return { error: error.message };
+
+  revalidatePath("/admin/properties");
+  revalidatePath("/");
+  return {};
+}
+
+export async function deleteProperty(id: string): Promise<{ error?: string }> {
+  const supabase = createAdminClient();
+
+  const { error } = await supabase.from("properties").delete().eq("id", id);
+
+  if (error) return { error: error.message };
+
+  revalidatePath("/admin/properties");
+  revalidatePath("/");
   return {};
 }

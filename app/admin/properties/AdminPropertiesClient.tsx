@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { togglePropertyFeatured } from "@/app/actions/admin";
+import { useRouter } from "next/navigation";
+import { togglePropertyFeatured, deleteProperty } from "@/app/actions/admin";
 import type { Property } from "@/app/types/property";
 import PropertyCard from "../components/PropertyCard";
 import StatsOverview from "../components/StatsOverview";
@@ -15,6 +16,7 @@ export default function AdminPropertiesClient({
   properties,
   dict,
 }: AdminPropertiesClientProps) {
+  const router = useRouter();
   const [list, setList] = useState(properties);
   const [search, setSearch] = useState("");
   const [isPending, startTransition] = useTransition();
@@ -32,6 +34,25 @@ export default function AdminPropertiesClient({
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage,
   );
+
+  const handleEdit = (property: Property) => {
+    router.push(`/admin/properties/${property.id}/edit`);
+  };
+
+  const handleDelete = (id: string) => {
+    if (
+      !confirm(
+        "Are you sure you want to delete this property? This action cannot be undone.",
+      )
+    )
+      return;
+    startTransition(async () => {
+      const result = await deleteProperty(id);
+      if (!result.error) {
+        setList((prev) => prev.filter((p) => p.id !== id));
+      }
+    });
+  };
 
   const handleToggleFeatured = (id: string, current: boolean) => {
     startTransition(async () => {
@@ -85,7 +106,10 @@ export default function AdminPropertiesClient({
             <span className="material-icons text-base">filter_list</span>{" "}
             {t.properties.filter}
           </button>
-          <button className="bg-[#006655] hover:bg-[#005544] text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-2">
+          <button
+            onClick={() => router.push("/admin/properties/new")}
+            className="bg-[#006655] hover:bg-[#005544] text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-2"
+          >
             <span className="material-icons text-base">add</span>{" "}
             {t.properties.addNew}
           </button>
@@ -138,8 +162,8 @@ export default function AdminPropertiesClient({
               <PropertyCard
                 key={property.id}
                 property={property}
-                onEdit={() => console.log("Edit", property.id)}
-                onDelete={() => console.log("Delete", property.id)}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
                 onToggleFeatured={handleToggleFeatured}
                 dict={dict}
               />
