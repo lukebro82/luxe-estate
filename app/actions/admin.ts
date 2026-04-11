@@ -264,3 +264,34 @@ export async function deleteProperty(id: string): Promise<{ error?: string }> {
   revalidatePath("/");
   return {};
 }
+
+// ─── Storage ──────────────────────────────────────────────────────────────────
+
+const STORAGE_BUCKET = "property-images";
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
+
+export async function uploadPropertyImage(
+  formData: FormData,
+): Promise<{ url?: string; error?: string }> {
+  const file = formData.get("file") as File | null;
+  if (!file) return { error: "No file provided" };
+  if (!ALLOWED_TYPES.includes(file.type))
+    return { error: "File type not allowed" };
+  if (file.size > MAX_SIZE) return { error: "File exceeds 5 MB limit" };
+
+  const ext = file.name.split(".").pop() ?? "jpg";
+  const path = `properties/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+
+  const bytes = await file.arrayBuffer();
+  const supabase = createAdminClient();
+
+  const { error: upError } = await supabase.storage
+    .from(STORAGE_BUCKET)
+    .upload(path, bytes, { contentType: file.type, upsert: false });
+
+  if (upError) return { error: upError.message };
+
+  const { data } = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+  return { url: data.publicUrl };
+}

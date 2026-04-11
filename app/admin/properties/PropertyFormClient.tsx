@@ -6,12 +6,10 @@ import Link from "next/link";
 import {
   createProperty,
   updateProperty,
+  uploadPropertyImage,
   type PropertyFormData,
 } from "@/app/actions/admin";
-import { supabase } from "@/lib/supabase";
 import type { Property } from "@/app/types/property";
-
-const STORAGE_BUCKET = "property-images";
 
 const inputClass =
   "w-full px-4 py-2.5 rounded-md border border-gray-200 bg-white text-[#19322F] placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[#006655] focus:border-[#006655] transition-all font-sans text-sm";
@@ -85,18 +83,11 @@ export default function PropertyFormClient({
     const uploaded: string[] = [];
 
     for (const file of Array.from(files)) {
-      if (file.size > 5 * 1024 * 1024) continue;
-      const ext = file.name.split(".").pop();
-      const path = `properties/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-      const { error: upError } = await supabase.storage
-        .from(STORAGE_BUCKET)
-        .upload(path, file);
-      if (!upError) {
-        const { data } = supabase.storage
-          .from(STORAGE_BUCKET)
-          .getPublicUrl(path);
-        uploaded.push(data.publicUrl);
-      }
+      const fd = new FormData();
+      fd.append("file", file);
+      const { url, error: upError } = await uploadPropertyImage(fd);
+      if (url) uploaded.push(url);
+      else if (upError) console.error("Upload error:", upError);
     }
 
     setImages((prev) => [...prev, ...uploaded]);
