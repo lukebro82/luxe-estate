@@ -14,7 +14,7 @@ interface UserCardProps {
 
 const roleColorMap: Record<
   "admin" | "user" | "agent",
-  Record<string, string>
+  { bg: string; text: string; icon: string }
 > = {
   admin: {
     bg: "bg-nordic-dark",
