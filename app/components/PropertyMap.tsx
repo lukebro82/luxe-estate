@@ -1,9 +1,9 @@
 "use client";
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-import { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import { useEffect, useState } from "react";
 
 interface PropertyMapProps {
   locationString: string;
@@ -17,16 +17,18 @@ export default function PropertyMap({ locationString }: PropertyMapProps) {
     setIsClient(true);
     delete (L.Icon.Default.prototype as any)._getIconUrl;
     L.Icon.Default.mergeOptions({
-      iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-      iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-      shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+      iconRetinaUrl:
+        "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+      iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+      shadowUrl:
+        "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
     });
 
     if (!locationString) return;
 
     fetch(
       `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(locationString)}&format=json&limit=1`,
-      { headers: { 'Accept-Language': 'en' } }
+      { headers: { "Accept-Language": "en" } },
     )
       .then((res) => res.json())
       .then((results) => {
@@ -34,7 +36,9 @@ export default function PropertyMap({ locationString }: PropertyMapProps) {
           setCoords([parseFloat(results[0].lat), parseFloat(results[0].lon)]);
         }
       })
-      .catch(() => {/* silently ignore geocoding errors */});
+      .catch(() => {
+        /* silently ignore geocoding errors */
+      });
   }, [locationString]);
 
   if (!isClient || !coords) {
