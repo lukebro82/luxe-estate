@@ -295,3 +295,19 @@ export async function uploadPropertyImage(
   const { data } = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(path);
   return { url: data.publicUrl };
 }
+
+export async function deletePropertyImage(
+  url: string,
+): Promise<{ error?: string }> {
+  const supabase = createAdminClient();
+
+  const marker = `/${STORAGE_BUCKET}/`;
+  const idx = url.indexOf(marker);
+  if (idx === -1) return { error: "Invalid image URL" };
+
+  const path = url.slice(idx + marker.length);
+
+  const { error } = await supabase.storage.from(STORAGE_BUCKET).remove([path]);
+  if (error) return { error: error.message };
+  return {};
+}

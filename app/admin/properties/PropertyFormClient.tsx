@@ -7,6 +7,7 @@ import {
   createProperty,
   updateProperty,
   uploadPropertyImage,
+  deletePropertyImage,
   type PropertyFormData,
 } from "@/app/actions/admin";
 import type { Property } from "@/app/types/property";
@@ -94,7 +95,8 @@ export default function PropertyFormClient({
     setUploadingImages(false);
   }
 
-  function removeImage(url: string) {
+  async function removeImage(url: string) {
+    await deletePropertyImage(url);
     setImages((prev) => prev.filter((i) => i !== url));
   }
 
