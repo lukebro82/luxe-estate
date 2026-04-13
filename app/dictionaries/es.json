@@ -1,8 +1,8 @@
 {
   "navbar": {
+    "all": "Todos",
     "buy": "Comprar",
     "rent": "Alquilar",
-    "sell": "Vender",
     "savedHomes": "Guardados",
     "signIn": "Iniciar sesión"
   },
