@@ -87,13 +87,6 @@ export default async function Navbar({
           </div>
           <div className="flex items-center space-x-6">
             <LanguageSelector currentLocale={locale} />
-            <button className="text-nordic-dark hover:text-mosque   transition-colors">
-              <span className="material-icons">search</span>
-            </button>
-            <button className="text-nordic-dark hover:text-mosque   transition-colors relative">
-              <span className="material-icons">notifications_none</span>
-              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-background-light "></span>
-            </button>
             <UserMenu
               user={user}
               signInText={dict.navbar.signIn}
