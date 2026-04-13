@@ -26,4 +26,5 @@ export interface PropertyFilters {
   maxPrice?: number;
   minBeds?: number;
   minBaths?: number;
+  type?: "sale" | "rent" | "sold";
 }

@@ -4,7 +4,11 @@ import { getDictionary, getLocale } from "@/app/utils/i18n";
 import UserMenu from "./UserMenu";
 import { createClient } from "@/utils/supabase/server";
 
-export default async function Navbar() {
+export default async function Navbar({
+  activePath = "/",
+}: {
+  activePath?: string;
+}) {
   const dict = await getDictionary();
   const locale = await getLocale();
   const supabase = await createClient();
@@ -40,30 +44,46 @@ export default async function Navbar() {
             </span>
           </Link>
           <div className="hidden md:flex items-center space-x-8">
-            <a
-              className="text-mosque font-medium text-sm border-b-2 border-mosque px-1 py-1"
+            <Link
+              className={`${
+                activePath === "/"
+                  ? "text-mosque border-mosque"
+                  : "text-nordic-dark/70 hover:text-nordic-dark hover:border-nordic-dark/20 border-transparent"
+              } font-medium text-sm border-b-2 px-1 py-1 transition-all`}
               href="/"
             >
               {dict.navbar.all}
-            </a>
-            <a
-              className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
-              href="#"
+            </Link>
+            <Link
+              className={`${
+                activePath === "/buy"
+                  ? "text-mosque border-mosque"
+                  : "text-nordic-dark/70 hover:text-nordic-dark hover:border-nordic-dark/20 border-transparent"
+              } font-medium text-sm border-b-2 px-1 py-1 transition-all`}
+              href="/buy"
             >
               {dict.navbar.buy}
-            </a>
-            <a
-              className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
-              href="#"
+            </Link>
+            <Link
+              className={`${
+                activePath === "/rent"
+                  ? "text-mosque border-mosque"
+                  : "text-nordic-dark/70 hover:text-nordic-dark hover:border-nordic-dark/20 border-transparent"
+              } font-medium text-sm border-b-2 px-1 py-1 transition-all`}
+              href="/rent"
             >
               {dict.navbar.rent}
-            </a>
-            <a
-              className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all"
+            </Link>
+            <Link
+              className={`${
+                activePath === "/saved"
+                  ? "text-mosque border-mosque"
+                  : "text-nordic-dark/70 hover:text-nordic-dark hover:border-nordic-dark/20 border-transparent"
+              } font-medium text-sm border-b-2 px-1 py-1 transition-all`}
               href="#"
             >
               {dict.navbar.savedHomes}
-            </a>
+            </Link>
           </div>
           <div className="flex items-center space-x-6">
             <LanguageSelector currentLocale={locale} />

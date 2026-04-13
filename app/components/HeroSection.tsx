@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import SearchFiltersModal from "./SearchFiltersModal";
 
 const CATEGORIES = ["All", "House", "Apartment", "Villa", "Penthouse"];
@@ -13,11 +13,12 @@ type Props = {
 export default function HeroSection({ dict }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [searchText, setSearchText] = useState(searchParams.get("q") ?? "");
   const [activeCategory, setActiveCategory] = useState(
-    searchParams.get("category") ?? "All"
+    searchParams.get("category") ?? "All",
   );
 
   // Sync state when URL changes (e.g. after modal applies filters)
@@ -35,9 +36,9 @@ export default function HeroSection({ dict }: Props) {
         if (v === undefined || v === "" || v === "All") params.delete(k);
         else params.set(k, v);
       });
-      return `/?${params.toString()}`;
+      return `${pathname}?${params.toString()}`;
     },
-    [searchParams]
+    [searchParams, pathname],
   );
 
   const handleSearch = () => {
@@ -60,7 +61,9 @@ export default function HeroSection({ dict }: Props) {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-nordic-dark leading-tight">
             {dict.hero.title1}{" "}
             <span className="relative inline-block">
-              <span className="relative z-10 font-medium">{dict.hero.title2}</span>
+              <span className="relative z-10 font-medium">
+                {dict.hero.title2}
+              </span>
               <span className="absolute bottom-2 left-0 w-full h-3 bg-mosque/20 -rotate-1 z-0"></span>
             </span>
             .
@@ -109,7 +112,8 @@ export default function HeroSection({ dict }: Props) {
               onClick={() => setFiltersOpen(true)}
               className="whitespace-nowrap flex items-center gap-1 px-4 py-2 rounded-full text-nordic-dark font-medium text-sm hover:bg-black/5 transition-colors"
             >
-              <span className="material-icons text-base">tune</span> {dict.hero.filters}
+              <span className="material-icons text-base">tune</span>{" "}
+              {dict.hero.filters}
             </button>
           </div>
         </div>

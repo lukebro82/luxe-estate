@@ -21,7 +21,7 @@ export async function getFeaturedProperties(): Promise<Property[]> {
 export async function getProperties(
   page: number,
   pageSize: number = PAGE_SIZE,
-  filters: PropertyFilters = {}
+  filters: PropertyFilters = {},
 ): Promise<{ properties: Property[]; totalCount: number }> {
   const from = (page - 1) * pageSize;
   const to = from + pageSize - 1;
@@ -35,13 +35,18 @@ export async function getProperties(
   // Text search: match title OR location
   if (filters.query && filters.query.trim() !== "") {
     query = query.or(
-      `title.ilike.%${filters.query}%,location.ilike.%${filters.query}%`
+      `title.ilike.%${filters.query}%,location.ilike.%${filters.query}%`,
     );
   }
 
   // Category filter (House, Apartment, Villa, Penthouse…)
   if (filters.category && filters.category !== "All") {
     query = query.eq("category", filters.category);
+  }
+
+  // Type filter (sale, rent, sold)
+  if (filters.type) {
+    query = query.eq("type", filters.type);
   }
 
   // Price range
@@ -73,7 +78,9 @@ export async function getProperties(
   };
 }
 
-export async function getPropertyBySlug(slug: string): Promise<Property | null> {
+export async function getPropertyBySlug(
+  slug: string,
+): Promise<Property | null> {
   const { data, error } = await supabase
     .from("properties")
     .select("*")

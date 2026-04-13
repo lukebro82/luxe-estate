@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Property } from "../types/property";
 import { PropertyFilters } from "../types/property";
 import PropertyCard from "./PropertyCard";
@@ -11,6 +12,7 @@ interface NewMarketProps {
   activeFilters: PropertyFilters;
   searchParams?: Record<string, string>;
   dict: any;
+  basePath?: string;
 }
 
 export default function NewMarket({
@@ -21,6 +23,7 @@ export default function NewMarket({
   activeFilters,
   searchParams = {},
   dict,
+  basePath = "/",
 }: NewMarketProps) {
   const isFiltered =
     activeFilters.query ||
@@ -36,29 +39,55 @@ export default function NewMarket({
         <div>
           {isFiltered ? (
             <>
-              <h2 className="text-2xl font-light text-nordic-dark">{dict.searchResults}</h2>
+              <h2 className="text-2xl font-light text-nordic-dark">
+                {dict.searchResults}
+              </h2>
               <p className="text-nordic-muted mt-1 text-sm">
-                {totalCount} {totalCount === 1 ? dict.propertyFound : dict.propertiesFound}
-                {activeFilters.query ? ` ${dict.forText} "${activeFilters.query}"` : ""}
+                {totalCount}{" "}
+                {totalCount === 1 ? dict.propertyFound : dict.propertiesFound}
+                {activeFilters.query
+                  ? ` ${dict.forText} "${activeFilters.query}"`
+                  : ""}
               </p>
             </>
           ) : (
             <>
-              <h2 className="text-2xl font-light text-nordic-dark">{dict.newInMarket}</h2>
-              <p className="text-nordic-muted mt-1 text-sm">{dict.newSubtitle}</p>
+              <h2 className="text-2xl font-light text-nordic-dark">
+                {dict.newInMarket}
+              </h2>
+              <p className="text-nordic-muted mt-1 text-sm">
+                {dict.newSubtitle}
+              </p>
             </>
           )}
         </div>
         <div className="hidden md:flex bg-white p-1 rounded-lg">
-          <button className="px-4 py-1.5 rounded-md text-sm font-medium bg-nordic-dark text-white shadow-sm">{dict.all}</button>
-          <button className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark">{dict.buy}</button>
-          <button className="px-4 py-1.5 rounded-md text-sm font-medium text-nordic-muted hover:text-nordic-dark">{dict.rent}</button>
+          <Link
+            href={`/?${new URLSearchParams(searchParams).toString()}`}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium ${basePath === "/" ? "bg-nordic-dark text-white shadow-sm" : "text-nordic-muted hover:text-nordic-dark"}`}
+          >
+            {dict.all}
+          </Link>
+          <Link
+            href={`/buy?${new URLSearchParams(searchParams).toString()}`}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium ${basePath === "/buy" ? "bg-nordic-dark text-white shadow-sm" : "text-nordic-muted hover:text-nordic-dark"}`}
+          >
+            {dict.buy}
+          </Link>
+          <Link
+            href={`/rent?${new URLSearchParams(searchParams).toString()}`}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium ${basePath === "/rent" ? "bg-nordic-dark text-white shadow-sm" : "text-nordic-muted hover:text-nordic-dark"}`}
+          >
+            {dict.rent}
+          </Link>
         </div>
       </div>
 
       {properties.length === 0 ? (
         <div className="text-center py-20 text-nordic-muted">
-          <span className="material-icons text-5xl mb-4 block opacity-30">search_off</span>
+          <span className="material-icons text-5xl mb-4 block opacity-30">
+            search_off
+          </span>
           <p className="text-lg">{dict.noResults}</p>
           <p className="text-sm mt-1">{dict.tryAdjusting}</p>
         </div>
@@ -70,7 +99,12 @@ export default function NewMarket({
         </div>
       )}
 
-      <Pagination currentPage={currentPage} totalPages={totalPages} searchParams={searchParams} />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        searchParams={searchParams}
+        basePath={basePath}
+      />
     </section>
   );
 }

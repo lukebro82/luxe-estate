@@ -1,16 +1,16 @@
 import { Suspense } from "react";
-import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import FeaturedCollections from "./components/FeaturedCollections";
-import NewMarket from "./components/NewMarket";
+import Navbar from "../components/Navbar";
+import HeroSection from "../components/HeroSection";
+import FeaturedCollections from "../components/FeaturedCollections";
+import NewMarket from "../components/NewMarket";
 import {
   getFeaturedProperties,
   getProperties,
   PAGE_SIZE,
-} from "../lib/properties";
-import { getDictionary } from "./utils/i18n";
+} from "../../lib/properties";
+import { getDictionary } from "../utils/i18n";
 
-interface HomeProps {
+interface BuyProps {
   searchParams: Promise<{
     page?: string;
     q?: string;
@@ -22,7 +22,7 @@ interface HomeProps {
   }>;
 }
 
-export default async function Home({ searchParams }: HomeProps) {
+export default async function Buy({ searchParams }: BuyProps) {
   const params = await searchParams;
   const currentPage = Math.max(1, parseInt(params.page ?? "1", 10));
   const dict = await getDictionary();
@@ -34,9 +34,9 @@ export default async function Home({ searchParams }: HomeProps) {
     maxPrice: params.maxPrice ? parseInt(params.maxPrice, 10) : undefined,
     minBeds: params.minBeds ? parseInt(params.minBeds, 10) : undefined,
     minBaths: params.minBaths ? parseInt(params.minBaths, 10) : undefined,
+    type: "sale" as const,
   };
 
-  // Build a plain string record to forward to pagination
   const rawParams: Record<string, string> = {};
   if (params.q) rawParams.q = params.q;
   if (params.category) rawParams.category = params.category;
@@ -45,7 +45,6 @@ export default async function Home({ searchParams }: HomeProps) {
   if (params.minBeds) rawParams.minBeds = params.minBeds;
   if (params.minBaths) rawParams.minBaths = params.minBaths;
 
-  // Determine if any filters or search are active
   const hasActiveFilters = Boolean(
     params.q ||
     params.category ||
@@ -64,7 +63,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <>
-      <Navbar activePath="/" />
+      <Navbar activePath="/buy" />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <Suspense fallback={<div className="py-12 md:py-16 h-48" />}>
           <HeroSection dict={dict} />
@@ -83,6 +82,7 @@ export default async function Home({ searchParams }: HomeProps) {
           activeFilters={filters}
           searchParams={rawParams}
           dict={dict.newMarket}
+          basePath="/buy"
         />
       </main>
     </>
