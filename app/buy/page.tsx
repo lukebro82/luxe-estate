@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-import Navbar from "../components/Navbar";
-import HeroSection from "../components/HeroSection";
-import FeaturedCollections from "../components/FeaturedCollections";
-import NewMarket from "../components/NewMarket";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import FeaturedCollections from "@/components/FeaturedCollections";
+import NewMarket from "@/components/NewMarket";
 import {
   getFeaturedProperties,
   getProperties,

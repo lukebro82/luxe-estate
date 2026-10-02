@@ -1,6 +1,6 @@
 "use client";
 
-import type { Property } from "@/app/types/property";
+import type { Property } from "@/types/property";
 
 interface PropertyCardProps {
   property: Property;

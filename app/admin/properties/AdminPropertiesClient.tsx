@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { togglePropertyFeatured, deleteProperty } from "@/app/actions/admin";
-import type { Property } from "@/app/types/property";
+import type { Property } from "@/types/property";
 import PropertyCard from "../components/PropertyCard";
 import StatsOverview from "../components/StatsOverview";
 

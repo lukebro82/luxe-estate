@@ -10,7 +10,7 @@ import {
   deletePropertyImage,
   type PropertyFormData,
 } from "@/app/actions/admin";
-import type { Property } from "@/app/types/property";
+import type { Property } from "@/types/property";
 
 const inputClass =
   "w-full px-4 py-2.5 rounded-md border border-gray-200 bg-white text-[#19322F] placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[#006655] focus:border-[#006655] transition-all font-sans text-sm";

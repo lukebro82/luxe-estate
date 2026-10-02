@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getPropertyBySlug } from "../../../lib/properties";
-import Navbar from "../../components/Navbar";
-import MapWrapper from "../../components/MapWrapper";
+import Navbar from "@/components/Navbar";
+import MapWrapper from "@/components/MapWrapper";
 import { Metadata } from "next";
 import { getDictionary } from "../../utils/i18n";
 

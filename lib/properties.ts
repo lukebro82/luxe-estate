@@ -1,5 +1,5 @@
 import { supabase } from "./supabase";
-import { Property, PropertyFilters } from "../app/types/property";
+import { Property, PropertyFilters } from "@/types/property";
 
 export const PAGE_SIZE = 8;
 

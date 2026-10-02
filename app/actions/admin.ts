@@ -196,7 +196,7 @@ function toSlug(title: string): string {
 }
 
 export async function getPropertyById(id: string): Promise<{
-  property?: import("@/app/types/property").Property;
+  property?: import("@/types/property").Property;
   error?: string;
 }> {
   const supabase = await createClient();

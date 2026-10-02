@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Property } from "../types/property";
-import { PropertyFilters } from "../types/property";
+import { Property, PropertyFilters } from "@/types/property";
 import PropertyCard from "./PropertyCard";
 import Pagination from "./Pagination";
 

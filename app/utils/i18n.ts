@@ -2,11 +2,11 @@ import { cookies } from "next/headers";
 
 const dictionaries = {
   en: () =>
-    import("@/app/dictionaries/en.json").then((module) => module.default),
+    import("@/dictionaries/en.json").then((module) => module.default),
   es: () =>
-    import("@/app/dictionaries/es.json").then((module) => module.default),
+    import("@/dictionaries/es.json").then((module) => module.default),
   fr: () =>
-    import("@/app/dictionaries/fr.json").then((module) => module.default),
+    import("@/dictionaries/fr.json").then((module) => module.default),
 };
 
 export type Locale = keyof typeof dictionaries;
