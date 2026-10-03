@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
-import { getPropertyBySlug } from "../../../lib/properties";
+import { getPropertyBySlug, DEFAULT_AGENT } from "../../../lib/properties";
 import Navbar from "@/components/Navbar";
 import MapWrapper from "@/components/MapWrapper";
+import AgentContactCard from "@/components/AgentContactCard";
 import { Metadata } from "next";
 import { getDictionary } from "../../utils/i18n";
 
@@ -97,35 +98,12 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                 
                 <div className="h-px bg-slate-100 my-6"></div>
                 
-                <div className="flex items-center gap-4 mb-6">
-                  <img alt="Agent" className="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4TxUmdQRb2VMjuaNxLEwLorv_dgHzoET2_wL5toSvew6nhtziaR3DX-U69DBN7J74yO6oKokpw8tqEFutJf13MeXghCy7FwZuAxnoJel6FYcKeCRUVinpZtrNnkZvXd-MY5_2MAtRD7JP5BieHixfCaeAPW04jm-y-nvF3HIrwcZ_HRDk_MrNP5WiPV3u9zNrEgM-SQoWGh4xLVSV444aZAbVl03mjjsW5WBpIeodCyqJxprTDp6Q157D06VxcdUSCf-l9UKQT-w"/>
-                  <div>
-                    <h3 className="font-semibold text-nordic">Sarah Jenkins</h3>
-                    <div className="flex items-center gap-1 text-xs text-mosque font-medium">
-                      <span className="material-icons text-[14px]">star</span>
-                      <span>{dict.propertyPage.topRated}</span>
-                    </div>
-                  </div>
-                  <div className="ml-auto flex gap-2">
-                    <button className="p-2 rounded-full bg-mosque/10 text-mosque hover:bg-mosque hover:text-white transition-colors">
-                      <span className="material-icons text-sm">chat</span>
-                    </button>
-                    <button className="p-2 rounded-full bg-mosque/10 text-mosque hover:bg-mosque hover:text-white transition-colors">
-                      <span className="material-icons text-sm">call</span>
-                    </button>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <button className="w-full bg-mosque hover:bg-primary-hover text-white py-4 px-6 rounded-lg font-medium transition-all shadow-lg shadow-mosque/20 flex items-center justify-center gap-2 group cursor-pointer">
-                    <span className="material-icons text-xl group-hover:scale-110 transition-transform">calendar_today</span>
-                    {dict.propertyPage.scheduleVisit}
-                  </button>
-                  <button className="w-full bg-transparent border border-nordic/10 hover:border-mosque text-nordic/80 hover:text-mosque py-4 px-6 rounded-lg font-medium transition-all flex items-center justify-center gap-2 cursor-pointer">
-                    <span className="material-icons text-xl">mail_outline</span>
-                    {dict.propertyPage.contactAgent}
-                  </button>
-                </div>
+                <AgentContactCard
+                  agent={property.agent || DEFAULT_AGENT}
+                  propertyTitle={property.title}
+                  propertyLocation={property.location}
+                  dict={dict}
+                />
               </div>
 
               {/* Map Card */}

@@ -9,6 +9,7 @@ import {
   uploadPropertyImage,
   deletePropertyImage,
   type PropertyFormData,
+  type AdminUser,
 } from "@/app/actions/admin";
 import type { Property } from "@/types/property";
 
@@ -21,11 +22,13 @@ const sectionHeaderClass =
 interface PropertyFormClientProps {
   mode: "create" | "edit";
   property?: Property;
+  users?: AdminUser[];
 }
 
 export default function PropertyFormClient({
   mode,
   property,
+  users = [],
 }: PropertyFormClientProps) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -45,6 +48,7 @@ export default function PropertyFormClient({
   const [yearBuilt, setYearBuilt] = useState<number | "">(
     property?.year_built ?? "",
   );
+  const [createdBy, setCreatedBy] = useState(property?.created_by ?? "");
   const [amenityInput, setAmenityInput] = useState("");
   const [amenities, setAmenities] = useState<string[]>(
     property?.amenities ?? [],
@@ -135,6 +139,7 @@ export default function PropertyFormClient({
       year_built: yearBuilt !== "" ? Number(yearBuilt) : null,
       amenities,
       images,
+      created_by: createdBy || null,
     };
 
     setSubmitting(true);
@@ -324,6 +329,37 @@ export default function PropertyFormClient({
                   </select>
                 </div>
               </div>
+
+              {/* Assigned Agent / Creator */}
+              {users.length > 0 && (
+                <div className="pt-2 border-t border-gray-100">
+                  <label
+                    htmlFor="agent"
+                    className="block text-sm font-medium text-[#19322F] mb-1.5"
+                  >
+                    Agente / Administrador Asignado
+                  </label>
+                  <select
+                    id="agent"
+                    value={createdBy}
+                    onChange={(e) => setCreatedBy(e.target.value)}
+                    className={inputClass}
+                  >
+                    <option value="">
+                      -- Usuario Actual / Asignación Automática --
+                    </option>
+                    {users.map((u) => (
+                      <option key={u.user_id} value={u.user_id}>
+                        {u.name} ({u.role.toUpperCase()})
+                        {u.phone ? ` • Tel: ${u.phone}` : ""} - {u.email}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-xs text-gray-500 mt-1.5">
+                    Este contacto aparecerá en la ficha pública de la propiedad junto con sus botones de llamada, WhatsApp y correo.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 

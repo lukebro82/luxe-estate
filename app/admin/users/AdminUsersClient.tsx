@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { updateUserRole, type AdminUser } from "@/app/actions/admin";
+import {
+  updateUserRole,
+  updateUserProfile,
+  type AdminUser,
+} from "@/app/actions/admin";
 import UserCard from "../components/UserCard";
 
 interface AdminUsersClientProps {
@@ -27,7 +31,8 @@ export default function AdminUsersClient({
   const filteredUsers = users.filter((u) => {
     const matchesSearch =
       u.name.toLowerCase().includes(search.toLowerCase()) ||
-      u.email.toLowerCase().includes(search.toLowerCase());
+      u.email.toLowerCase().includes(search.toLowerCase()) ||
+      (u.phone && u.phone.toLowerCase().includes(search.toLowerCase()));
 
     const matchesRole =
       roleFilter === "all" ||
@@ -53,6 +58,28 @@ export default function AdminUsersClient({
         );
       }
     });
+  };
+
+  const handleProfileUpdate = async (
+    userId: string,
+    data: { name: string; phone: string; avatar_url: string },
+  ) => {
+    const result = await updateUserProfile(userId, data);
+    if (result.error) {
+      throw new Error(result.error);
+    }
+    setUsers((prev) =>
+      prev.map((u) =>
+        u.user_id === userId
+          ? {
+              ...u,
+              name: data.name,
+              phone: data.phone,
+              avatar_url: data.avatar_url,
+            }
+          : u,
+      ),
+    );
   };
 
   const tabs = [
@@ -136,6 +163,7 @@ export default function AdminUsersClient({
               user={user}
               isHighlighted={user.role === "admin"}
               onRoleChange={handleRoleChange}
+              onProfileUpdate={handleProfileUpdate}
               dict={t.common}
             />
           ))

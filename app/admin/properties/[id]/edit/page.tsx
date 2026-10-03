@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getPropertyById } from "@/app/actions/admin";
+import { getPropertyById, getAllUsers } from "@/app/actions/admin";
 import PropertyFormClient from "../../PropertyFormClient";
 
 interface EditPropertyPageProps {
@@ -14,11 +14,14 @@ export default async function EditPropertyPage({
   params,
 }: EditPropertyPageProps) {
   const { id } = await params;
-  const { property, error } = await getPropertyById(id);
+  const [{ property, error }, { users = [] }] = await Promise.all([
+    getPropertyById(id),
+    getAllUsers(),
+  ]);
 
   if (error || !property) {
     notFound();
   }
 
-  return <PropertyFormClient mode="edit" property={property} />;
+  return <PropertyFormClient mode="edit" property={property} users={users} />;
 }

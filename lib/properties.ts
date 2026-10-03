@@ -1,7 +1,46 @@
 import { supabase } from "./supabase";
-import { Property, PropertyFilters } from "@/types/property";
+import { Property, PropertyFilters, AgentProfile } from "@/types/property";
 
 export const PAGE_SIZE = 8;
+
+export const DEFAULT_AGENT: AgentProfile = {
+  id: "default-agent",
+  name: "Sarah Jenkins",
+  email: "sarah.jenkins@luxeestate.com",
+  phone: "+1 (604) 555-0192",
+  avatar_url:
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuD4TxUmdQRb2VMjuaNxLEwLorv_dgHzoET2_wL5toSvew6nhtziaR3DX-U69DBN7J74yO6oKokpw8tqEFutJf13MeXghCy7FwZuAxnoJel6FYcKeCRUVinpZtrNnkZvXd-MY5_2MAtRD7JP5BieHixfCaeAPW04jm-y-nvF3HIrwcZ_HRDk_MrNP5WiPV3u9zNrEgM-SQoWGh4xLVSV444aZAbVl03mjjsW5WBpIeodCyqJxprTDp6Q157D06VxcdUSCf-l9UKQT-w",
+  role: "agent",
+};
+
+export async function getAgentProfile(
+  userId?: string | null,
+): Promise<AgentProfile> {
+  if (!userId) return DEFAULT_AGENT;
+
+  try {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", userId)
+      .single();
+
+    if (error || !data) {
+      return DEFAULT_AGENT;
+    }
+
+    return {
+      id: data.id,
+      name: data.name || DEFAULT_AGENT.name,
+      email: data.email || DEFAULT_AGENT.email,
+      phone: data.phone || DEFAULT_AGENT.phone,
+      avatar_url: data.avatar_url || DEFAULT_AGENT.avatar_url,
+      role: data.role || "agent",
+    };
+  } catch {
+    return DEFAULT_AGENT;
+  }
+}
 
 export async function getFeaturedProperties(): Promise<Property[]> {
   const { data, error } = await supabase
@@ -87,10 +126,13 @@ export async function getPropertyBySlug(
     .eq("slug", slug)
     .single();
 
-  if (error) {
-    console.error("Error fetching property by slug:", error.message);
+  if (error || !data) {
+    console.error("Error fetching property by slug:", error?.message);
     return null;
   }
 
-  return data as Property;
+  const property = data as Property;
+  property.agent = await getAgentProfile(property.created_by);
+
+  return property;
 }

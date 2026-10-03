@@ -10,6 +10,7 @@ export type AdminUser = {
   user_id: string;
   email: string;
   name: string;
+  phone?: string;
   avatar_url: string;
   role: "admin" | "user" | "agent";
   created_at: string;
@@ -91,6 +92,7 @@ export async function getAllUsers(): Promise<GetAllUsersResult> {
     user_id: String(u.user_id),
     email: String(u.email ?? ""),
     name: String(u.name ?? u.email ?? "Unknown"),
+    phone: String(u.phone ?? ""),
     avatar_url: String(u.avatar_url ?? ""),
     role: roleMap[String(u.user_id)] ?? "user",
     created_at: String(u.created_at ?? ""),
@@ -133,6 +135,43 @@ export async function updateUserRole(
   if (error) return { error: error.message };
 
   revalidatePath("/admin/users");
+  return {};
+}
+
+export async function updateUserProfile(
+  userId: string,
+  data: { name?: string; phone?: string; avatar_url?: string },
+): Promise<{ error?: string }> {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: "Not authenticated" };
+
+  const { error } = await supabase.rpc("update_user_profile_admin", {
+    target_user_id: userId,
+    target_name: data.name ?? null,
+    target_phone: data.phone ?? null,
+    target_avatar_url: data.avatar_url ?? null,
+  });
+
+  if (error) {
+    // Fallback: update profiles table directly using admin client
+    const adminClient = createAdminClient();
+    const { error: profileError } = await adminClient.from("profiles").upsert({
+      id: userId,
+      name: data.name,
+      phone: data.phone,
+      avatar_url: data.avatar_url,
+      updated_at: new Date().toISOString(),
+    });
+    if (profileError) return { error: profileError.message };
+  }
+
+  revalidatePath("/admin/users");
+  revalidatePath("/admin/properties");
+  revalidatePath("/");
   return {};
 }
 
@@ -183,6 +222,7 @@ export type PropertyFormData = {
   description?: string | null;
   amenities?: string[];
   images: string[];
+  created_by?: string | null;
 };
 
 function toSlug(title: string): string {
@@ -216,12 +256,22 @@ export async function createProperty(
 ): Promise<{ id?: string; error?: string }> {
   const supabase = createAdminClient();
 
+  let createdBy = formData.created_by;
+  if (!createdBy) {
+    const authClient = await createClient();
+    const {
+      data: { user },
+    } = await authClient.auth.getUser();
+    createdBy = user?.id || null;
+  }
+
   const slug = toSlug(formData.title);
 
   const { data, error } = await supabase
     .from("properties")
     .insert({
       ...formData,
+      created_by: createdBy,
       slug,
       featured: false,
     })
